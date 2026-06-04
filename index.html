@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Ratificación de Consentimiento | Estudio Jurídico Alfaro Madariaga</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,6 +52,7 @@
             color: var(--white);
             min-height: 100vh;
             overflow-x: hidden;
+            min-width: 320px;
         }
 
         body::before {
@@ -331,21 +332,21 @@
         }
 
         .seal-logo {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 2;
-          padding-top: 12px;
-       }
-       .seal-logo img {
-          width:  calc(var(--seal-circle-size) * 1.0);
-          height: calc(var(--seal-circle-size) * 1.0);
-          object-fit: contain;
-          object-position: center;
-          display: block;
-      }
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            padding-top: 12px;
+        }
+        .seal-logo img {
+            width:  calc(var(--seal-circle-size) * 1.0);
+            height: calc(var(--seal-circle-size) * 1.0);
+            object-fit: contain;
+            object-position: center;
+            display: block;
+        }
 
         .seal-ring {
             position: absolute;
@@ -472,7 +473,7 @@
         .form-status.success { display:block; background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.25); color:#6ee7b7; }
         .form-status.error { display:block; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25); color:#fca5a5; }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             :root {
                 --seal-size: 160px;
                 --seal-circle-size: 180px;
@@ -480,19 +481,239 @@
                 --hand-size: 340px;
             }
 
-            .navbar           { padding: 0 16px; }
-            .hero             { padding: 0 20px; }
-            .hero-divider     { padding-left: 20px; padding-right: 20px; }
-            .progress-bar     { padding: 0 20px; }
-            .form-area        { padding: 32px 20px 80px; }
-            .q-card           { padding: 22px 20px; }
-            .btn-row,
-            .modal-actions    { grid-template-columns: 1fr; }
-            .meta-row         { grid-template-columns: 1fr; }
-            .site-footer      { flex-direction:column; align-items:flex-start; padding:18px 20px; }
-            .hero-spacer      { height: 100px; }
+            .navbar {
+                padding: 0 16px;
+                height: 56px;
+            }
+            .nav-logo img { height: 26px; }
+            .nav-pill { padding: 4px 10px; }
+            .nav-pill span { font-size: .58rem; }
 
-            .seal-scene       { margin-bottom: 28px; }
+            .progress-bar {
+                padding: 0 16px;
+            }
+            .progress-bar-inner {
+                padding: 12px 0;
+            }
+            .top-header.compact .progress-bar-inner {
+                padding: 6px 0;
+            }
+            .progress-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .progress-label,
+            .progress-pct {
+                font-size: .6rem;
+            }
+
+            .hero-spacer { height: 125px; }
+
+            .hero {
+                padding: 0 16px;
+            }
+            .hero-title {
+                font-size: clamp(1.8rem, 6vw, 2.4rem);
+                margin-bottom: 16px;
+            }
+            .hero-subtitle {
+                font-size: .85rem;
+                max-width: 100%;
+            }
+            .hero-badge {
+                margin-bottom: 20px;
+            }
+            .badge-text {
+                font-size: .6rem;
+            }
+
+            .hero-divider {
+                padding: 0 16px;
+                margin-top: 24px;
+            }
+
+            .form-area {
+                padding: 24px 16px 80px;
+            }
+
+            .q-card {
+                padding: 20px 16px;
+            }
+            .q-label {
+                font-size: .82rem;
+                margin-bottom: 16px;
+            }
+            .text-input {
+                padding: 12px 14px 12px 40px;
+                font-size: .82rem;
+            }
+            .input-icon {
+                left: 12px;
+                width: 14px;
+                height: 14px;
+            }
+
+            .decl-card {
+                padding: 20px 16px;
+            }
+            .decl-text {
+                font-size: .9rem;
+                line-height: 1.7;
+                padding-left: 14px;
+            }
+
+            .meta-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .meta-item {
+                padding: 12px 14px;
+            }
+            .meta-val {
+                font-size: .78rem;
+            }
+
+            .clause {
+                padding: 16px 18px;
+                gap: 12px;
+            }
+            .clause-text {
+                font-size: .78rem;
+            }
+            .clause-check {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+            }
+
+            .decision-question {
+                font-size: 1.1rem;
+            }
+            .decision-sub {
+                font-size: .72rem;
+                margin-bottom: 20px;
+            }
+
+            .btn-row,
+            .modal-actions {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .btn-accept,
+            .btn-reject {
+                height: 50px;
+                font-size: .68rem;
+            }
+
+            .section-header {
+                margin: 36px 0 20px;
+                gap: 12px;
+            }
+            .section-num {
+                width: 28px;
+                height: 28px;
+                font-size: .75rem;
+            }
+            .section-title {
+                font-size: .65rem;
+            }
+
+            .warning-note {
+                padding: 12px 14px;
+                font-size: .68rem;
+            }
+
+            .modal-box {
+                padding: 28px 20px;
+                margin: 0 8px;
+            }
+            .modal-icon {
+                width: 56px;
+                height: 56px;
+                margin-bottom: 16px;
+            }
+            .modal-title {
+                font-size: 1.2rem;
+            }
+            .modal-body {
+                font-size: .78rem;
+            }
+            .modal-btn-confirm,
+            .modal-btn-cancel {
+                height: 44px;
+                font-size: .66rem;
+            }
+            .modal-fingerprint {
+                font-size: .45rem;
+            }
+
+            .success-title {
+                font-size: 1.5rem;
+            }
+            .success-body {
+                font-size: .8rem;
+                max-width: 100%;
+                padding: 0 8px;
+            }
+            .reg-badge {
+                padding: 14px 28px;
+            }
+            .reg-val {
+                font-size: 1rem;
+            }
+
+            .seal-scene {
+                margin-bottom: 24px;
+            }
+
+            .site-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 16px;
+                gap: 10px;
+            }
+            .site-footer img {
+                height: 18px;
+            }
+            .footer-text {
+                font-size: .6rem;
+            }
+            .footer-comp-item {
+                font-size: .52rem;
+            }
+
+            .subtle-hash-footer {
+                padding: 10px 16px 24px;
+            }
+            .subtle-hash-val {
+                font-size: .5rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .nav-pill span {
+                font-size: .5rem;
+                letter-spacing: 1px;
+            }
+            .hero-title {
+                font-size: 1.6rem;
+            }
+            .q-card {
+                padding: 16px 12px;
+            }
+            .decl-card {
+                padding: 16px 12px;
+            }
+            .clause {
+                padding: 14px 14px;
+            }
+            .btn-accept,
+            .btn-reject {
+                height: 46px;
+                font-size: .62rem;
+                letter-spacing: 1px;
+            }
         }
     </style>
 </head>
@@ -530,13 +751,13 @@
 
     <div class="hero-spacer"></div>
 
-    <div class="hero">
+    <div class="hero" id="heroSection">
         <div class="hero-badge"><div class="badge-line"></div><span class="badge-text">Ratificación de Consentimiento</span></div>
        <h1 class="hero-title">Aceptación de<br>servicios jurídicos</h1>
         <p class="hero-subtitle">Complete los siguientes pasos para formalizar su respuesta a la propuesta de servicios que recibió durante la llamada. Este acto constituye la manifestación inequívoca de su voluntad.</p>
     </div>
 
-    <div class="hero-divider"><div class="divider-line"></div></div>
+    <div class="hero-divider" id="heroDivider"></div>
 
     <div class="form-area">
 
@@ -871,24 +1092,20 @@
             xhr.onload = function() {
                 if (xhr.status >= 200 && xhr.status < 400) {
                     setFormStatus(statusElementId, 'success', 'Datos registrados exitosamente en el sistema.');
-                    console.log('Google Forms: envío exitoso', datos);
                 } else {
                     setFormStatus(statusElementId, 'error', 'Error al enviar datos. Reintentando...');
-                    console.warn('Google Forms: error de envío, usando respaldo local', xhr.status);
                     guardarRespaldoLocal(datos);
                 }
             };
 
             xhr.onerror = function() {
                 setFormStatus(statusElementId, 'error', 'Error de conexión. Datos guardados localmente.');
-                console.warn('Google Forms: error de red, usando respaldo local');
                 guardarRespaldoLocal(datos);
             };
 
             xhr.timeout = 15000;
             xhr.ontimeout = function() {
                 setFormStatus(statusElementId, 'error', 'Tiempo de espera agotado. Datos guardados localmente.');
-                console.warn('Google Forms: timeout, usando respaldo local');
                 guardarRespaldoLocal(datos);
             };
 
@@ -904,7 +1121,6 @@
                     sessionId: SESSION_ID
                 });
                 localStorage.setItem('ejam_form_respaldo', JSON.stringify(respaldos));
-                console.log('Respaldo local guardado. Total pendientes:', respaldos.length);
             } catch(e) {
                 console.error('Error al guardar respaldo local:', e);
             }
@@ -915,7 +1131,6 @@
                 var respaldos = JSON.parse(localStorage.getItem('ejam_form_respaldo') || '[]');
                 if (respaldos.length === 0) return;
 
-                console.log('Reintentando envíos pendientes:', respaldos.length);
                 respaldos.forEach(function(item) {
                     var formData = new FormData();
                     formData.append(GOOGLE_FORM_ENTRY_RUT, item.datos.rut);
@@ -929,11 +1144,6 @@
 
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', GOOGLE_FORM_ACTION_URL, true);
-                    xhr.onload = function() {
-                        if (xhr.status >= 200 && xhr.status < 400) {
-                            console.log('Reenvío exitoso de respaldo');
-                        }
-                    };
                     xhr.send(formData);
                 });
                 localStorage.removeItem('ejam_form_respaldo');
@@ -943,7 +1153,6 @@
         }
 
         window.addEventListener('online', function() {
-            console.log('Conexión restaurada. Reintentando envíos pendientes...');
             reintentarEnviosPendientes();
         });
 
@@ -1037,6 +1246,9 @@
         window.doAccept = function() {
             closeModal();
 
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('heroDivider').style.display = 'none';
+
             decisionFinal = 'ACEPTADA';
             var year = new Date().getFullYear();
             var reg  = 'EJAM-'+year+'-'+Math.floor(10000+Math.random()*89999);
@@ -1101,6 +1313,9 @@
 
         window.doReject = function() {
             decisionFinal = 'RECHAZADA';
+
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('heroDivider').style.display = 'none';
 
             document.getElementById('page2').classList.remove('is-active');
             document.getElementById('rejectScreen').classList.add('is-active');
