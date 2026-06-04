@@ -250,8 +250,8 @@
         .btn-accept { background:linear-gradient(135deg,#1e40af,#2563eb); color:white; border:1px solid rgba(59,130,246,.4); }
         .btn-accept:not(:disabled):hover { transform:translateY(-3px); box-shadow:0 14px 36px rgba(37,99,235,.4); }
         .btn-accept:disabled { opacity:.3; cursor:not-allowed; }
-        .btn-reject { background:transparent; color:var(--error); border:1.5px solid rgba(239,68,68,.3); }
-        .btn-reject:hover { background:rgba(239,68,68,.06); border-color:var(--error); transform:translateY(-3px); }
+        .btn-reject { background:linear-gradient(135deg,#991b1b,#dc2626); color:white; border:1px solid rgba(239,68,68,.4); }
+        .btn-reject:hover { background:linear-gradient(135deg,#7f1d1d,#b91c1c); border-color:#ef4444; transform:translateY(-3px); box-shadow:0 14px 36px rgba(239,68,68,.4); }
 
         .warning-note { display:flex; align-items:flex-start; gap:10px; background:rgba(201,168,76,.04); border:1px solid rgba(201,168,76,.2); border-radius:var(--radius-sm); padding:14px 18px; font-size:.72rem; font-weight:300; color:var(--muted); line-height:1.6; }
         .warning-note svg { color:var(--gold); flex-shrink:0; margin-top:2px; }
@@ -270,8 +270,8 @@
         .modal-actions { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
         .modal-btn-confirm { height:48px; border-radius:var(--radius-md); background:linear-gradient(135deg,#1e40af,#2563eb); color:white; border:1px solid rgba(59,130,246,.4); font-family:'Inter',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all .3s; }
         .modal-btn-confirm:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(37,99,235,.4); }
-        .modal-btn-cancel { height:48px; border-radius:var(--radius-md); background:transparent; color:var(--muted); border:1px solid var(--border); font-family:'Inter',sans-serif; font-size:.72rem; font-weight:500; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all .3s; }
-        .modal-btn-cancel:hover { border-color:rgba(255,255,255,.2); color:var(--white); }
+        .modal-btn-cancel { height:48px; border-radius:var(--radius-md); background:linear-gradient(135deg,#991b1b,#dc2626); color:white; border:1px solid rgba(239,68,68,.4); font-family:'Inter',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all .3s; }
+        .modal-btn-cancel:hover { background:linear-gradient(135deg,#7f1d1d,#b91c1c); border-color:#ef4444; transform:translateY(-2px); box-shadow:0 10px 28px rgba(239,68,68,.4); }
         .modal-fingerprint { margin-top:20px; padding-top:20px; border-top:1px solid var(--border); font-family:var(--mono); font-size:.52rem; color:var(--dim); letter-spacing:.5px; word-break:break-all; line-height:1.5; }
 
         .success-wrap { display:none; text-align:center; padding: 40px 20px 60px; }
@@ -657,7 +657,7 @@
             </div>
 
             <h2 class="success-title">Propuesta de Servicios Aceptada</h2>
-            <p class="success-body">Su aceptación ha quedado sellada y registrada. Se le enviará una copia del contrato al correo electrónico proporcionado y será contactado en un plazo de 24 horas hábiles para coordinar los siguientes pasos.</p>
+            <p class="success-body">Su aceptación ha quedado registrada. Se le enviará una copia del contrato suscrito telefonicamente al correo electrónico proporcionado y será contactado en un plazo de 24 horas hábiles por un abogado especialista para coordinar los siguientes pasos.</p>
             <div class="reg-badge">
                 <span class="reg-label">N° de Registro</span>
                 <span class="reg-val" id="reg-num">—</span>
