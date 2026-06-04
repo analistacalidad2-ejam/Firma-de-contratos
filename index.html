@@ -1023,7 +1023,7 @@
     if(!/^\d+$/.test(cuerpo)) return false;
     if(!/^[\dK]$/.test(dv)) return false;
     var numero = parseInt(cuerpo,10);
-    if(numero < 1000000 || numero > 99999999) return false;
+    if(numero < 1000000 || numero > 999999999) return false;
     var suma=0, mult=2;
     var rutInvertido = cuerpo.split('').reverse().join('');
     for(var i=0;i<rutInvertido.length;i++){
