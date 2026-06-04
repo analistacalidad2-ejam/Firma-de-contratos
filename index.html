@@ -964,22 +964,55 @@
         .success-wrap.is-active {
             display: block;
         }
+.seal-backdrop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 
+        0 0 60px rgba(255,255,255,0.06),
+        0 0 120px rgba(201,168,76,0.04),
+        inset 0 0 40px rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    animation: sealReveal 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
 
-        .seal-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto 36px;
-            perspective: 800px;
+.seal-backdrop::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    opacity: 0.5;
+}
+
+.seal-backdrop::after {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
+}
+         .seal-container {
+         position: relative;
+         width: 200px;
+         height: 200px;
+         margin: 0 auto 36px;
+         perspective: 800px;
         }
 
-        .seal-3d {
-            width: 300px;
-            height: 300px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: sealReveal 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
+       .seal-3d {
+         width: 200px;
+         height: 200px;
+         position: relative;
+         transform-style: preserve-3d;
+         animation: sealReveal 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+         }
 
         @keyframes sealReveal {
             0% {
@@ -1004,14 +1037,14 @@
             }
         }
 
-        .seal-img {
-            width: 300px;
-            height: 300px;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 30px rgba(201, 168, 76, 0.3));
-            position: absolute;
-            inset: 0;
-        }
+       .seal-img {
+           width: 200px;
+           height: 200px;
+           object-fit: contain;
+           filter: drop-shadow(0 10px 30px rgba(201, 168, 76, 0.3));
+           position: absolute;
+           inset: 0;
+         }
 
         .seal-glow {
             position: absolute;
@@ -1058,8 +1091,8 @@
 
         @keyframes handStamp {
             0% {
-                transform: translate(-50%, -50%) translateY(-200px) rotate(-30deg);
-                opacity: 0;
+               transform: translate(-50%, -50%) translateY(-500px) rotate(-30deg);
+               opacity: 0;
             }
             30% {
                 transform: translate(-50%, -50%) translateY(-30px) rotate(-10deg);
@@ -1083,26 +1116,26 @@
             }
         }
 
-       .hand-img {
-    width: 360px;
-    height: 360px;
+      .hand-img {
+    width: 450px;
+    height: 450px;
     object-fit: contain;
     filter: drop-shadow(0 8px 20px rgba(201, 168, 76, 0.5));
 }
 
-        .stamp-impact-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            border: 3px solid rgba(201, 168, 76, 0.6);
-            pointer-events: none;
-            animation: impactRing 2s ease-out forwards;
-            animation-delay: 0.8s;
-        }
+       .stamp-impact-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 3px solid rgba(201, 168, 76, 0.6);
+    pointer-events: none;
+    animation: impactRing 2s ease-out forwards;
+    animation-delay: 0.8s;
+}
 
         @keyframes impactRing {
             0% {
@@ -1367,24 +1400,28 @@
                 height: 100px;
             }
             .seal-container {
-                width: 240px;
-                height: 240px;
+                width: 160px;
+                height: 160px;
+            }
+            .seal-backdrop {
+                width: 210px;
+                height: 210px;
             }
             .seal-img {
-                width: 240px;
-                height: 240px;
-            }
+                 width: 160px;
+                 height: 160px;
+            } 
             .seal-3d {
-                width: 240px;
-                height: 240px;
+                 width: 160px;
+                 height: 160px;
             }
            .hand-img {
-                width: 270px;
-             height: 270px;
+                width: 340px;
+                height: 340px;
             }
-            .stamp-impact-ring {
-                width: 200px;
-                height: 200px;
+           .stamp-impact-ring {
+               width: 220px;
+               height: 220px;
             }
         }
     </style>
@@ -1512,8 +1549,9 @@
 
         <div class="success-wrap" id="successScreen">
             <div class="seal-container" id="sealContainer">
-                <div class="seal-glow"></div>
-                <div class="stamp-impact-ring"></div>
+            <div class="seal-backdrop"></div>
+            <div class="seal-glow"></div>
+            <div class="stamp-impact-ring"></div>
                 <div class="hand-container" id="handContainer">
                     <img src="https://i.ibb.co/8L9PphYG/IMG-85614.png" alt="Mano sellando" class="hand-img">
                 </div>
