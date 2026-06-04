@@ -965,6 +965,37 @@
         var GOOGLE_FORM_ENTRY_REGISTRO = 'entry.7890123456';
         var GOOGLE_FORM_ENTRY_IP = 'entry.8901234567';
 
+        function generarCodigoUnico(rut, email, timestamp) {
+            var limpiarRut = rut.replace(/[\.\-\s]/g, '').toUpperCase();
+            var limpiarEmail = email.replace(/[^a-zA-Z0-9@.]/g, '').toLowerCase();
+            var baseString = limpiarRut + '|' + limpiarEmail + '|' + timestamp + '|' + crypto.randomUUID();
+            var hashSimple = '';
+            for (var i = 0; i < baseString.length; i++) {
+                hashSimple += baseString.charCodeAt(i).toString(16);
+                if (hashSimple.length > 32) break;
+            }
+            while (hashSimple.length < 32) {
+                hashSimple += Math.floor(Math.random() * 16).toString(16);
+            }
+            var year = new Date().getFullYear();
+            var uniqueSuffix = hashSimple.substring(0, 16).toUpperCase();
+            return 'EJAM-' + year + '-' + uniqueSuffix;
+        }
+
+        function generarHashUnico(rut, email, timestamp) {
+            var limpiarRut = rut.replace(/[\.\-\s]/g, '').toUpperCase();
+            var limpiarEmail = email.replace(/[^a-zA-Z0-9@.]/g, '').toLowerCase();
+            var seed = limpiarRut + '|' + limpiarEmail + '|' + timestamp + '|' + crypto.randomUUID() + '|' + performance.now();
+            var hash = '';
+            for (var i = 0; i < seed.length; i++) {
+                hash += seed.charCodeAt(i).toString(16);
+            }
+            while (hash.length < 64) {
+                hash += Math.floor(Math.random() * 16).toString(16);
+            }
+            return hash.substring(0, 64).toLowerCase();
+        }
+
         function genSessionId() {
             var chars = '0123456789ABCDEF';
             return [8,4,4,4,12].map(function(len){
@@ -977,31 +1008,10 @@
 
         function padZ(n,w){ return String(n).padStart(w,'0'); }
 
-        async function sha256(message) {
-            try {
-                var buf = new TextEncoder().encode(message);
-                var hb  = await crypto.subtle.digest('SHA-256', buf);
-                return Array.from(new Uint8Array(hb))
-                    .map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
-            } catch(e) {
-                var h = '';
-                for(var i=0;i<64;i++) h += Math.floor(Math.random()*16).toString(16);
-                return h;
-            }
+        function formatDate24h(date) {
+            return padZ(date.getDate(),2)+'-'+padZ(date.getMonth()+1,2)+'-'+date.getFullYear()+
+                   ', '+padZ(date.getHours(),2)+':'+padZ(date.getMinutes(),2)+':'+padZ(date.getSeconds(),2);
         }
-
-        async function buildHash(rut, ts) {
-            var seed = (rut||'anonymous')+'|'+ts+'|'+SESSION_ID+'|EJAM';
-            var h = await sha256(seed);
-            globalHash = h;
-            document.getElementById('globalHashFooter').textContent = h;
-            return h;
-        }
-
-        (async function(){
-            var h = await buildHash('anonymous', new Date().toISOString());
-            document.getElementById('globalHashFooter').textContent = h;
-        })();
 
         var inputRut = document.getElementById('in-rut');
 
@@ -1055,11 +1065,6 @@
             fill.style.width = pct+'%';
             fill.classList.toggle('active', step>0);
             document.getElementById('pctLabel').textContent = step+' / 3 pasos completados';
-        }
-
-        function formatDate24h(date) {
-            return padZ(date.getDate(),2)+'-'+padZ(date.getMonth()+1,2)+'-'+date.getFullYear()+
-                   ', '+padZ(date.getHours(),2)+':'+padZ(date.getMinutes(),2)+':'+padZ(date.getSeconds(),2);
         }
 
         function startLiveClock(elementId) {
@@ -1177,17 +1182,19 @@
             estado.fecha = formatDate24h(now);
             estado.sessionId = SESSION_ID;
 
-            var h = await buildHash(rut, now.toISOString());
-            estado.hash = h;
+            var uniqueHash = generarHashUnico(rut, email, now.toISOString());
+            estado.hash = uniqueHash;
+            globalHash = uniqueHash;
 
             document.getElementById('decl-rut').textContent   = rut;
             document.getElementById('decl-fecha').textContent  = estado.fecha;
             document.getElementById('meta-rut').textContent    = rut;
             document.getElementById('meta-email').textContent  = email;
             document.getElementById('meta-fecha').textContent  = estado.fecha;
-            document.getElementById('meta-hash').textContent   = h.slice(0,32)+'…';
+            document.getElementById('meta-hash').textContent   = uniqueHash.slice(0,32)+'…';
             document.getElementById('meta-ip').textContent     =
                 '10.'+Math.floor(Math.random()*200+50)+'.'+Math.floor(Math.random()*200+50)+'.x (enmascarada)';
+            document.getElementById('globalHashFooter').textContent = uniqueHash;
 
             startLiveClock('meta-fecha');
             startLiveClock('decl-fecha');
@@ -1257,11 +1264,12 @@
             document.getElementById('heroDivider').style.display = 'none';
 
             decisionFinal = 'ACEPTADA';
-            var year = new Date().getFullYear();
-            var reg  = 'EJAM-'+year+'-'+Math.floor(10000+Math.random()*89999);
-            document.getElementById('reg-num').textContent  = reg;
+            
+            var codigoRegistro = generarCodigoUnico(estado.rut, estado.email, new Date().toISOString());
+            
+            document.getElementById('reg-num').textContent  = codigoRegistro;
             document.getElementById('reg-hash').textContent =
-                'SHA-256: '+globalHash.slice(0,24)+'…'+globalHash.slice(-8);
+                'HASH: '+globalHash.slice(0,24)+'…'+globalHash.slice(-8);
 
             document.getElementById('page2').classList.remove('is-active');
             document.getElementById('successScreen').classList.add('is-active');
@@ -1274,7 +1282,7 @@
                 hash: estado.hash,
                 sessionId: estado.sessionId,
                 decision: decisionFinal,
-                registro: reg,
+                registro: codigoRegistro,
                 ip: document.getElementById('meta-ip').textContent
             };
 
@@ -1334,6 +1342,8 @@
             document.getElementById('rejectScreen').classList.add('is-active');
             updateProgress(3);
 
+            var codigoRechazo = generarCodigoUnico(estado.rut, estado.email, new Date().toISOString());
+
             var datosParaEnviar = {
                 rut: estado.rut,
                 email: estado.email,
@@ -1341,7 +1351,7 @@
                 hash: estado.hash,
                 sessionId: estado.sessionId,
                 decision: decisionFinal,
-                registro: '',
+                registro: codigoRechazo,
                 ip: document.getElementById('meta-ip').textContent
             };
 
