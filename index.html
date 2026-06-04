@@ -30,8 +30,6 @@
             --radius-sm: 10px;
             --radius-md: 14px;
             --radius-lg: 20px;
-
-            /* Seal sizing — single source of truth */
             --seal-size: 200px;
             --seal-circle-size: 220px;
             --seal-stage-height: 260px;
@@ -79,7 +77,6 @@
             background-size: 256px;
         }
 
-        /* ─── NAVBAR ─── */
         .top-header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -128,7 +125,6 @@
         }
         .nav-pill span { font-size: .65rem; font-weight: 500; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold-light); }
 
-        /* ─── PROGRESS ─── */
         .progress-bar { padding: 0 48px; border-bottom: 1px solid var(--border); transition: padding .3s; }
         .progress-bar-inner { padding: 16px 0; transition: padding .3s; }
         .top-header.compact .progress-bar-inner { padding: 7px 0; }
@@ -151,7 +147,6 @@
         }
         .progress-fill.active::after { opacity: 1; }
 
-        /* ─── HERO ─── */
         .hero {
             position: relative; z-index: 2;
             padding: 0 48px; max-width: 760px; margin: 0 auto;
@@ -169,7 +164,6 @@
         .hero-divider { max-width: 760px; margin: 32px auto 0; padding: 0 48px; position: relative; z-index: 2; opacity: 0; animation: fadeUp .7s ease .7s forwards; }
         .divider-line { height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); }
 
-        /* ─── FORM AREA ─── */
         .form-area { max-width: 760px; margin: 0 auto; padding: 40px 48px 100px; position: relative; z-index: 2; }
 
         .page { display: none; animation: fadeUpPage .55s cubic-bezier(.22,1,.36,1) forwards; }
@@ -180,14 +174,12 @@
             to   { opacity:1; transform:translateY(0); }
         }
 
-        /* ─── SECTIONS ─── */
         .section-header { display: flex; align-items: center; gap: 16px; margin: 56px 0 24px; }
         .section-header:first-child { margin-top: 0; }
         .section-num { font-family: 'Inter', sans-serif; font-size: .85rem; font-weight: 700; color: var(--navy); background: var(--gold); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .section-title { font-size: .72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); }
         .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
 
-        /* ─── CARDS ─── */
         .q-card {
             background: rgba(12,28,54,.65); border: 1px solid var(--border);
             border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 14px;
@@ -227,7 +219,6 @@
         .q-card.error .err { display:flex; animation:slideDown .3s ease; }
         @keyframes slideDown { from{opacity:0;transform:translateY(-4px);} to{opacity:1;transform:translateY(0);} }
 
-        /* ─── DECL CARD ─── */
         .decl-card { background:rgba(12,28,54,.65); border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px 32px; margin-bottom:24px; backdrop-filter:blur(12px); position:relative; overflow:hidden; }
         .decl-card::before { content:''; position:absolute; inset:0; border-radius:var(--radius-lg); background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 60%); pointer-events:none; }
         .decl-text { font-family:'Playfair Display',serif; font-size:1.02rem; font-weight:400; line-height:1.9; color:rgba(255,255,255,.78); font-style:italic; border-left:2px solid var(--gold); padding-left:20px; margin-bottom:22px; }
@@ -239,7 +230,6 @@
         .meta-val { font-family:'Playfair Display',serif; font-size:.88rem; font-weight:600; color:var(--white); word-break:break-all; }
         .meta-val.mono { font-family:var(--mono); font-size:.72rem; }
 
-        /* ─── CLAUSES ─── */
         .clause { display:flex; gap:16px; align-items:flex-start; background:rgba(12,28,54,.65); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:12px; cursor:pointer; transition:all .3s cubic-bezier(.34,1.56,.64,1); backdrop-filter:blur(10px); user-select:none; }
         .clause:hover { border-color:rgba(201,168,76,.35); background:rgba(201,168,76,.04); transform:translateX(4px); }
         .clause.is-checked { border-color:var(--gold); background:rgba(201,168,76,.06); }
@@ -251,7 +241,6 @@
         .clause-text { font-size:.86rem; font-weight:300; line-height:1.7; color:rgba(255,255,255,.7); }
         .clause-text strong { font-weight:600; color:var(--white); }
 
-        /* ─── DECISION ─── */
         .decision-prompt { text-align:center; padding:24px 0 12px; }
         .decision-question { font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:600; font-style:italic; color:var(--white); line-height:1.4; margin-bottom:8px; }
         .decision-sub { font-size:.78rem; font-weight:300; color:var(--muted); margin-bottom:26px; }
@@ -267,7 +256,6 @@
         .warning-note { display:flex; align-items:flex-start; gap:10px; background:rgba(201,168,76,.04); border:1px solid rgba(201,168,76,.2); border-radius:var(--radius-sm); padding:14px 18px; font-size:.72rem; font-weight:300; color:var(--muted); line-height:1.6; }
         .warning-note svg { color:var(--gold); flex-shrink:0; margin-top:2px; }
 
-        /* ─── MODAL ─── */
         .modal-overlay { position:fixed; inset:0; z-index:500; background:rgba(6,16,31,.92); backdrop-filter:blur(20px); display:none; align-items:center; justify-content:center; padding:20px; }
         .modal-overlay.is-open { display:flex; animation:fadeInOverlay .35s ease; }
         @keyframes fadeInOverlay { from{opacity:0;} to{opacity:1;} }
@@ -286,37 +274,20 @@
         .modal-btn-cancel:hover { border-color:rgba(255,255,255,.2); color:var(--white); }
         .modal-fingerprint { margin-top:20px; padding-top:20px; border-top:1px solid var(--border); font-family:var(--mono); font-size:.52rem; color:var(--dim); letter-spacing:.5px; word-break:break-all; line-height:1.5; }
 
-        /* ═══════════════════════════════════════════════════
-           SEAL ANIMATION — fully refactored
-           All elements share the same coordinate origin:
-           the centre of .seal-scene.
-        ═══════════════════════════════════════════════════ */
-
-        /* Wrapper that gives the success screen a clean flow */
         .success-wrap { display:none; text-align:center; padding: 40px 20px 60px; }
         .success-wrap.is-active { display:block; }
 
-        /*
-         * .seal-scene
-         * ──────────
-         * Fixed-size block centred in the flow.
-         * Contains EVERY animated layer via absolute positioning.
-         * overflow:hidden is intentionally removed so the hand can
-         * travel in from above without clipping.
-         */
         .seal-scene {
             position: relative;
-            width: var(--seal-circle-size);   /* 220 px */
-            height: var(--seal-circle-size);  /* 220 px */
+            width: var(--seal-circle-size);
+            height: var(--seal-circle-size);
             margin: 0 auto 32px;
-            /* overflow hidden would clip the hand coming from above */
             overflow: visible;
         }
 
-        /* ── glow (sits behind everything) ── */
         .seal-glow {
             position: absolute;
-            inset: -40px;                /* extends 40 px beyond the scene edge */
+            inset: -40px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(201,168,76,.22) 0%, rgba(201,168,76,.06) 45%, transparent 70%);
             animation: glowPulse 3s ease-in-out infinite;
@@ -328,7 +299,6 @@
             50%      { opacity:.8; transform:scale(1.05); }
         }
 
-        /* ── white disc (background of the stamp) ── */
         .seal-disc {
             position: absolute;
             inset: 0;
@@ -341,7 +311,6 @@
                 0 8px 40px rgba(0,0,0,.4),
                 0 0 80px   rgba(201,168,76,.1);
             z-index: 1;
-            /* subtle inner rings */
             overflow: hidden;
         }
         .seal-disc::before {
@@ -361,7 +330,6 @@
             pointer-events: none;
         }
 
-        /* ── logo image, perfectly centred inside the disc ── */
         .seal-logo {
             position: absolute;
             inset: 0;
@@ -378,7 +346,6 @@
             display: block;
         }
 
-        /* ── impact ring ── */
         .seal-ring {
             position: absolute;
             inset: -10px;
@@ -398,7 +365,6 @@
             100% { transform:scale(2);    opacity:0; }
         }
 
-        /* ── particle burst (positioned at scene centre) ── */
         .seal-particles {
             position: absolute;
             top: 50%; left: 50%;
@@ -427,35 +393,15 @@
             100% { transform:translate(var(--sx),var(--sy)) scale(0); opacity:0; }
         }
 
-        /*
-         * ── hand / stamp overlay ──
-         *
-         * The hand is placed so that the TIP of the stamp
-         * (bottom-centre of the hand image) lands exactly on the
-         * centre of .seal-scene.
-         *
-         * Strategy:
-         *  - hand image is square: var(--hand-size) × var(--hand-size)
-         *  - the stamp tip sits at roughly 72 % down the image
-         *  - so we offset top by  -(hand-size * 0.72) to bring the
-         *    tip to y=0 of the scene centre, then we position the
-         *    element itself at top:50% left:50% and translateX(-50%)
-         *
-         * Final resting transform: translate(-50%, -72%) — tip at centre.
-         * Entry transform: start 600 px above final position.
-         */
         .seal-hand {
             position: absolute;
-            /* tip anchored at scene centre */
             top:  50%;
             left: 50%;
             width:  var(--hand-size);
             height: var(--hand-size);
             pointer-events: none;
             z-index: 10;
-            /* hidden until animation plays */
             opacity: 0;
-            /* 72 % = approximate stamp-tip Y position in the image */
             transform: translate(-50%, calc(-72% - 600px)) rotate(-25deg);
         }
         .seal-hand img {
@@ -471,16 +417,12 @@
         @keyframes handStamp {
             0%   { transform:translate(-50%, calc(-72% - 600px)) rotate(-25deg); opacity:0; }
             25%  { opacity:1; }
-            /* impact */
             52%  { transform:translate(-50%, -72%) rotate(0deg);  opacity:1; }
-            /* slight bounce back */
             65%  { transform:translate(-50%, calc(-72% - 18px)) rotate(-3deg); opacity:1; }
             75%  { transform:translate(-50%, calc(-72% - 6px))  rotate(-1deg); opacity:1; }
-            /* lift away and fade */
             100% { transform:translate(-50%, calc(-72% - 500px)) rotate(-15deg); opacity:0; }
         }
 
-        /* disc + logo share a reveal animation */
         .seal-disc, .seal-logo {
             opacity: 0;
             transform: scale(0.3);
@@ -488,7 +430,7 @@
         }
         .seal-disc.reveal, .seal-logo.reveal {
             animation: sealReveal 1.2s cubic-bezier(.34,1.56,.64,1) forwards;
-            animation-delay: .7s; /* appears as hand hits */
+            animation-delay: .7s;
         }
         @keyframes sealReveal {
             0%   { opacity:0; transform:scale(.3) rotate(-15deg); }
@@ -497,7 +439,6 @@
             100% { opacity:1; transform:scale(1) rotate(0); }
         }
 
-        /* ─── SUCCESS TEXT ─── */
         .success-title { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--white); margin-bottom:14px; }
         .success-body  { font-size:.9rem; font-weight:300; color:var(--muted); line-height:1.75; max-width:400px; margin:0 auto 28px; }
 
@@ -506,16 +447,13 @@
         .reg-val   { font-family:'Playfair Display',serif; font-size:1.25rem; letter-spacing:3px; color:var(--gold-light); font-weight:600; }
         .reg-hash  { font-family:var(--mono); font-size:.55rem; color:var(--dim); letter-spacing:.3px; margin-top:4px; word-break:break-all; }
 
-        /* ─── REJECT ─── */
         .reject-ring { width:96px; height:96px; border-radius:50%; border:1px solid rgba(239,68,68,.3); display:inline-flex; align-items:center; justify-content:center; margin-bottom:28px; }
 
-        /* ─── HASH FOOTER ─── */
         .subtle-hash-footer { position:relative; z-index:2; text-align:center; padding:12px 20px 28px; opacity:.55; transition:opacity .5s; }
         .subtle-hash-footer:hover { opacity:.9; }
         .subtle-hash-val { font-family:var(--mono); font-size:.56rem; color:var(--dim); letter-spacing:.8px; word-break:break-all; line-height:1.5; max-width:760px; margin:0 auto; transition:color .4s; }
         .subtle-hash-val:hover { color:rgba(255,255,255,.5); }
 
-        /* ─── SITE FOOTER ─── */
         .site-footer { position:relative; z-index:2; background:rgba(6,16,31,.9); backdrop-filter:blur(10px); border-top:1px solid var(--border); padding:20px 48px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
         .site-footer img { height:22px; object-fit:contain; }
         .footer-text { font-size:.67rem; font-weight:300; color:var(--dim); letter-spacing:.3px; }
@@ -528,7 +466,11 @@
             to   { opacity:1; transform:translateY(0); }
         }
 
-        /* ─── RESPONSIVE ─── */
+        .form-status { display:none; margin-top:16px; padding:12px 16px; border-radius:var(--radius-sm); font-size:.78rem; font-weight:500; text-align:center; }
+        .form-status.sending { display:block; background:rgba(37,99,235,.15); border:1px solid rgba(37,99,235,.3); color:#93c5fd; }
+        .form-status.success { display:block; background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.25); color:#6ee7b7; }
+        .form-status.error { display:block; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25); color:#fca5a5; }
+
         @media (max-width: 640px) {
             :root {
                 --seal-size: 160px;
@@ -597,7 +539,6 @@
 
     <div class="form-area">
 
-        <!-- PAGE 1 -->
         <div class="page is-active" id="page1">
             <div class="section-header">
                 <div class="section-num">1</div>
@@ -635,7 +576,6 @@
             </button>
         </div>
 
-        <!-- PAGE 2 -->
         <div class="page" id="page2">
             <div class="section-header">
                 <div class="section-num">2</div>
@@ -698,34 +638,19 @@
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <span>Debe confirmar todas las cláusulas para habilitar la aceptación. Esta acción genera un registro inmutable con validez legal conforme a la legislación chilena vigente.</span>
             </div>
+
+            <div class="form-status" id="formStatus"></div>
         </div>
 
-        <!-- SUCCESS -->
         <div class="success-wrap" id="successScreen">
-
-            <!--
-                .seal-scene: single coordinate origin for all layers.
-                The centre of this element is the visual "stamp point".
-            -->
             <div class="seal-scene" id="sealScene">
-                <!-- Layer 0: ambient glow -->
                 <div class="seal-glow"></div>
-
-                <!-- Layer 1: white disc (stamp background) -->
                 <div class="seal-disc" id="sealDisc"></div>
-
-                <!-- Layer 2: logo centred inside disc -->
                 <div class="seal-logo" id="sealLogo">
                     <img src="https://i.ibb.co/6cvQJDC3/IMG4551.png" alt="Sello de Aceptación">
                 </div>
-
-                <!-- Layer 3: impact ring -->
                 <div class="seal-ring" id="sealRing"></div>
-
-                <!-- Layer 4: particle burst origin -->
                 <div class="seal-particles" id="sealParticles"></div>
-
-                <!-- Layer 5: hand (comes from above, exits above) -->
                 <div class="seal-hand" id="sealHand">
                     <img src="https://i.ibb.co/8L9PphYG/IMG-85614.png" alt="Mano sellando">
                 </div>
@@ -738,9 +663,9 @@
                 <span class="reg-val" id="reg-num">—</span>
                 <span class="reg-hash" id="reg-hash">—</span>
             </div>
+            <div class="form-status" id="successFormStatus"></div>
         </div>
 
-        <!-- REJECT -->
         <div class="success-wrap" id="rejectScreen">
             <div class="reject-ring">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
@@ -751,15 +676,15 @@
             </div>
             <h2 class="success-title">Propuesta no aceptada</h2>
             <p class="success-body">Hemos registrado su decisión. Si desea retomar la consulta o tiene dudas sobre la propuesta de servicios, no dude en contactarnos.</p>
+            <div class="form-status" id="rejectFormStatus"></div>
         </div>
 
-    </div><!-- /form-area -->
+    </div>
 
     <div class="subtle-hash-footer">
         <div class="subtle-hash-val" id="globalHashFooter">—</div>
     </div>
 
-    <!-- MODAL -->
     <div class="modal-overlay" id="confirmModal">
         <div class="modal-box">
             <div class="modal-icon">
@@ -797,11 +722,20 @@
     (function () {
         'use strict';
 
-        /* ── state ── */
         var estado = { rut: '', email: '', fecha: '', sessionId: '', hash: '' };
         var globalHash = '';
+        var decisionFinal = '';
 
-        /* ── session id ── */
+        var GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfFICTICIOS0FORMID0AQUI/formResponse';
+        var GOOGLE_FORM_ENTRY_RUT = 'entry.1234567890';
+        var GOOGLE_FORM_ENTRY_EMAIL = 'entry.2345678901';
+        var GOOGLE_FORM_ENTRY_FECHA = 'entry.3456789012';
+        var GOOGLE_FORM_ENTRY_HASH = 'entry.4567890123';
+        var GOOGLE_FORM_ENTRY_SESSION_ID = 'entry.5678901234';
+        var GOOGLE_FORM_ENTRY_DECISION = 'entry.6789012345';
+        var GOOGLE_FORM_ENTRY_REGISTRO = 'entry.7890123456';
+        var GOOGLE_FORM_ENTRY_IP = 'entry.8901234567';
+
         function genSessionId() {
             var chars = '0123456789ABCDEF';
             return [8,4,4,4,12].map(function(len){
@@ -814,7 +748,6 @@
 
         function padZ(n,w){ return String(n).padStart(w,'0'); }
 
-        /* ── sha-256 ── */
         async function sha256(message) {
             try {
                 var buf = new TextEncoder().encode(message);
@@ -836,13 +769,11 @@
             return h;
         }
 
-        /* initial anonymous hash */
         (async function(){
             var h = await buildHash('anonymous', new Date().toISOString());
             document.getElementById('globalHashFooter').textContent = h;
         })();
 
-        /* ── RUT formatter & validator ── */
         var inputRut = document.getElementById('in-rut');
 
         function validarRut(rut) {
@@ -889,7 +820,6 @@
             el.addEventListener('blur',   function(){ this.closest('.q-card').classList.remove('focused'); });
         });
 
-        /* ── progress ── */
         function updateProgress(step) {
             var pct = Math.round((step/3)*100);
             var fill = document.getElementById('progressFill');
@@ -898,7 +828,6 @@
             document.getElementById('pctLabel').textContent = step+' / 3 pasos completados';
         }
 
-        /* ── date ── */
         function formatDate24h(date) {
             return padZ(date.getDate(),2)+'-'+padZ(date.getMonth()+1,2)+'-'+date.getFullYear()+
                    ', '+padZ(date.getHours(),2)+':'+padZ(date.getMinutes(),2)+':'+padZ(date.getSeconds(),2);
@@ -911,7 +840,112 @@
             setInterval(tick, 1000);
         }
 
-        /* ── step 1 → 2 ── */
+        function setFormStatus(elementId, type, message) {
+            var el = document.getElementById(elementId);
+            if (!el) return;
+            el.className = 'form-status ' + type;
+            el.textContent = message;
+            if (type === 'success' || type === 'error') {
+                setTimeout(function(){ el.className = 'form-status'; el.textContent = ''; }, 8000);
+            }
+        }
+
+        function enviarAGoogleForms(datos, statusElementId) {
+            setFormStatus(statusElementId, 'sending', 'Enviando datos al registro central...');
+
+            var formData = new FormData();
+            formData.append(GOOGLE_FORM_ENTRY_RUT, datos.rut);
+            formData.append(GOOGLE_FORM_ENTRY_EMAIL, datos.email);
+            formData.append(GOOGLE_FORM_ENTRY_FECHA, datos.fecha);
+            formData.append(GOOGLE_FORM_ENTRY_HASH, datos.hash);
+            formData.append(GOOGLE_FORM_ENTRY_SESSION_ID, datos.sessionId);
+            formData.append(GOOGLE_FORM_ENTRY_DECISION, datos.decision);
+            formData.append(GOOGLE_FORM_ENTRY_REGISTRO, datos.registro || '');
+            formData.append(GOOGLE_FORM_ENTRY_IP, datos.ip || 'No disponible');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', GOOGLE_FORM_ACTION_URL, true);
+            xhr.setRequestHeader('Accept', 'application/json');
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    setFormStatus(statusElementId, 'success', 'Datos registrados exitosamente en el sistema.');
+                    console.log('Google Forms: envío exitoso', datos);
+                } else {
+                    setFormStatus(statusElementId, 'error', 'Error al enviar datos. Reintentando...');
+                    console.warn('Google Forms: error de envío, usando respaldo local', xhr.status);
+                    guardarRespaldoLocal(datos);
+                }
+            };
+
+            xhr.onerror = function() {
+                setFormStatus(statusElementId, 'error', 'Error de conexión. Datos guardados localmente.');
+                console.warn('Google Forms: error de red, usando respaldo local');
+                guardarRespaldoLocal(datos);
+            };
+
+            xhr.timeout = 15000;
+            xhr.ontimeout = function() {
+                setFormStatus(statusElementId, 'error', 'Tiempo de espera agotado. Datos guardados localmente.');
+                console.warn('Google Forms: timeout, usando respaldo local');
+                guardarRespaldoLocal(datos);
+            };
+
+            xhr.send(formData);
+        }
+
+        function guardarRespaldoLocal(datos) {
+            try {
+                var respaldos = JSON.parse(localStorage.getItem('ejam_form_respaldo') || '[]');
+                respaldos.push({
+                    datos: datos,
+                    timestamp: new Date().toISOString(),
+                    sessionId: SESSION_ID
+                });
+                localStorage.setItem('ejam_form_respaldo', JSON.stringify(respaldos));
+                console.log('Respaldo local guardado. Total pendientes:', respaldos.length);
+            } catch(e) {
+                console.error('Error al guardar respaldo local:', e);
+            }
+        }
+
+        function reintentarEnviosPendientes() {
+            try {
+                var respaldos = JSON.parse(localStorage.getItem('ejam_form_respaldo') || '[]');
+                if (respaldos.length === 0) return;
+
+                console.log('Reintentando envíos pendientes:', respaldos.length);
+                respaldos.forEach(function(item) {
+                    var formData = new FormData();
+                    formData.append(GOOGLE_FORM_ENTRY_RUT, item.datos.rut);
+                    formData.append(GOOGLE_FORM_ENTRY_EMAIL, item.datos.email);
+                    formData.append(GOOGLE_FORM_ENTRY_FECHA, item.datos.fecha);
+                    formData.append(GOOGLE_FORM_ENTRY_HASH, item.datos.hash);
+                    formData.append(GOOGLE_FORM_ENTRY_SESSION_ID, item.datos.sessionId);
+                    formData.append(GOOGLE_FORM_ENTRY_DECISION, item.datos.decision);
+                    formData.append(GOOGLE_FORM_ENTRY_REGISTRO, item.datos.registro || '');
+                    formData.append(GOOGLE_FORM_ENTRY_IP, item.datos.ip || 'No disponible');
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', GOOGLE_FORM_ACTION_URL, true);
+                    xhr.onload = function() {
+                        if (xhr.status >= 200 && xhr.status < 400) {
+                            console.log('Reenvío exitoso de respaldo');
+                        }
+                    };
+                    xhr.send(formData);
+                });
+                localStorage.removeItem('ejam_form_respaldo');
+            } catch(e) {
+                console.error('Error al reintentar envíos:', e);
+            }
+        }
+
+        window.addEventListener('online', function() {
+            console.log('Conexión restaurada. Reintentando envíos pendientes...');
+            reintentarEnviosPendientes();
+        });
+
         window.irAlPaso2 = async function() {
             var rut   = inputRut.value.trim();
             var email = document.getElementById('in-email').value.trim();
@@ -947,7 +981,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        /* ── clauses ── */
         window.toggleClause = function(el) {
             el.classList.toggle('is-checked');
             var allOk = Array.from(document.querySelectorAll('.clause'))
@@ -955,7 +988,6 @@
             document.getElementById('btnAceptar').disabled = !allOk;
         };
 
-        /* ── modal ── */
         window.preAccept = function() {
             document.getElementById('modalFingerprint').textContent =
                 'SHA-256: '+globalHash.slice(0,16)+'…'+globalHash.slice(-8)+' · SID: '+SESSION_ID.slice(0,13);
@@ -968,7 +1000,6 @@
             if(e.target === this) closeModal();
         });
 
-        /* ── particles ── */
         function spawnParticles(container) {
             var count = 40;
             for(var i=0; i<count; i++) {
@@ -1002,63 +1033,64 @@
             }
         }
 
-        /* ── accept ── */
         window.doAccept = function() {
             closeModal();
 
+            decisionFinal = 'ACEPTADA';
             var year = new Date().getFullYear();
             var reg  = 'EJAM-'+year+'-'+Math.floor(10000+Math.random()*89999);
             document.getElementById('reg-num').textContent  = reg;
             document.getElementById('reg-hash').textContent =
                 'SHA-256: '+globalHash.slice(0,24)+'…'+globalHash.slice(-8);
 
-            /* hide page 2, show success */
             document.getElementById('page2').classList.remove('is-active');
             document.getElementById('successScreen').classList.add('is-active');
             updateProgress(3);
 
-            /*
-             * Scroll so the seal scene is comfortably visible
-             * before the animation plays.
-             * We wait one rAF so the element is rendered.
-             */
+            var datosParaEnviar = {
+                rut: estado.rut,
+                email: estado.email,
+                fecha: estado.fecha,
+                hash: estado.hash,
+                sessionId: estado.sessionId,
+                decision: decisionFinal,
+                registro: reg,
+                ip: document.getElementById('meta-ip').textContent
+            };
+
+            enviarAGoogleForms(datosParaEnviar, 'successFormStatus');
+
             requestAnimationFrame(function(){
                 var scene = document.getElementById('sealScene');
                 var rect  = scene.getBoundingClientRect();
                 var viewH = window.innerHeight;
-                /* target: put the scene centre at 40 % of the viewport */
                 var targetTop = window.scrollY + rect.top + rect.height/2 - viewH*0.4;
                 window.scrollTo({ top: targetTop, behavior: 'smooth' });
 
-                /* reset & trigger animations after scroll settles (~400ms) */
                 setTimeout(playStampAnimation, 450);
             });
         };
 
         function playStampAnimation() {
-            /* disc + logo */
             var disc = document.getElementById('sealDisc');
             var logo = document.getElementById('sealLogo');
             disc.classList.remove('reveal');
             logo.classList.remove('reveal');
-            void disc.offsetWidth; /* force reflow */
+            void disc.offsetWidth;
             disc.classList.add('reveal');
             logo.classList.add('reveal');
 
-            /* ring */
             var ring = document.getElementById('sealRing');
             ring.classList.remove('animate');
             void ring.offsetWidth;
             ring.style.animationDelay = '0.75s';
             ring.classList.add('animate');
 
-            /* hand */
             var hand = document.getElementById('sealHand');
             hand.classList.remove('animate');
             void hand.offsetWidth;
             hand.classList.add('animate');
 
-            /* particles (delay matches hand impact) */
             setTimeout(function(){
                 var burst = document.getElementById('sealParticles');
                 burst.innerHTML = '';
@@ -1066,21 +1098,37 @@
             }, 900);
         }
 
-        /* ── reject ── */
         window.doReject = function() {
+            decisionFinal = 'RECHAZADA';
+
             document.getElementById('page2').classList.remove('is-active');
             document.getElementById('rejectScreen').classList.add('is-active');
             updateProgress(3);
+
+            var datosParaEnviar = {
+                rut: estado.rut,
+                email: estado.email,
+                fecha: estado.fecha,
+                hash: estado.hash,
+                sessionId: estado.sessionId,
+                decision: decisionFinal,
+                registro: '',
+                ip: document.getElementById('meta-ip').textContent
+            };
+
+            enviarAGoogleForms(datosParaEnviar, 'rejectFormStatus');
+
             document.getElementById('rejectScreen').scrollIntoView({ behavior:'smooth', block:'center' });
         };
 
-        /* ── compact navbar ── */
         var topHeader = document.getElementById('topHeader');
         window.addEventListener('scroll', function(){
             topHeader.classList.toggle('compact', window.scrollY > 80);
         });
 
         updateProgress(1);
+
+        reintentarEnviosPendientes();
 
     })();
     </script>
