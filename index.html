@@ -106,19 +106,22 @@
             height: 10px;
         }
 
-        .navbar {
+        .top-header {
             position: fixed;
             top: 28px;
             left: 0;
             right: 0;
             z-index: 200;
+            background: rgba(6, 16, 31, 0.92);
+            backdrop-filter: blur(24px) saturate(180%);
+        }
+
+        .navbar {
             height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 48px;
-            background: rgba(6, 16, 31, 0.88);
-            backdrop-filter: blur(24px) saturate(180%);
             border-bottom: 1px solid var(--border);
         }
 
@@ -215,12 +218,89 @@
             color: var(--gold-light);
         }
 
+        .progress-bar {
+            padding: 0 48px;
+            border-bottom: 1px solid var(--border);
+            transition: padding 0.3s ease;
+        }
+
+        .progress-bar-inner {
+            padding: 16px 0;
+            transition: padding 0.3s ease;
+        }
+
+        .top-header.compact .progress-bar-inner {
+            padding: 7px 0;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-label {
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        .progress-pct {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress-track {
+            height: 2px;
+            background: var(--border);
+            border-radius: 100px;
+            overflow: visible;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue), var(--gold));
+            border-radius: 100px;
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold-light);
+            box-shadow: 0 0 12px var(--gold);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+
+        .progress-fill.active::after {
+            opacity: 1;
+        }
+
         .hero {
             position: relative;
             z-index: 2;
-            padding: 128px 48px 0;
+            padding: 0 48px;
             max-width: 760px;
             margin: 0 auto;
+        }
+
+        .hero-spacer {
+            height: 160px;
         }
 
         .hero-badge {
@@ -289,86 +369,6 @@
         .divider-line {
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
-        }
-
-        .progress-sticky {
-            position: sticky;
-            top: 0;
-            z-index: 150;
-            background: rgba(6, 16, 31, 0.95);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 0;
-            margin-top: 0;
-            transition: all 0.3s ease;
-        }
-
-        .progress-sticky.compact {
-            padding: 7px 0;
-        }
-
-        .progress-wrap {
-            max-width: 760px;
-            margin: 0 auto;
-            padding: 0 48px;
-        }
-
-        .progress-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .progress-label {
-            font-size: 0.68rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--dim);
-        }
-
-        .progress-pct {
-            font-size: 0.68rem;
-            font-weight: 600;
-            color: var(--gold-light);
-            font-variant-numeric: tabular-nums;
-        }
-
-        .progress-track {
-            height: 2px;
-            background: var(--border);
-            border-radius: 100px;
-            overflow: visible;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--blue), var(--gold));
-            border-radius: 100px;
-            width: 0%;
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            right: -1px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gold-light);
-            box-shadow: 0 0 12px var(--gold);
-            transition: opacity 0.3s;
-            opacity: 0;
-        }
-
-        .progress-fill.active::after {
-            opacity: 1;
         }
 
         .form-area {
@@ -1236,13 +1236,13 @@
                 padding: 0 16px;
             }
             .hero {
-                padding: 110px 20px 0;
+                padding: 0 20px;
             }
             .hero-divider {
                 padding-left: 20px;
                 padding-right: 20px;
             }
-            .progress-wrap {
+            .progress-bar {
                 padding: 0 20px;
             }
             .form-area {
@@ -1266,6 +1266,12 @@
             .ssl-ribbon {
                 display: none;
             }
+            .top-header {
+                top: 0;
+            }
+            .hero-spacer {
+                height: 132px;
+            }
         }
     </style>
 </head>
@@ -1278,18 +1284,31 @@
         </span>
     </div>
 
-    <nav class="navbar">
-        <div class="nav-logo">
-            <img src="https://ejam.cl/imgsitio/LOGOS/LOGO%20GENERAL/logoblanco/EJAM-logocompleto%20blanco.png" alt="EJAM" onerror="this.style.display='none';document.querySelector('.nav-logo-fallback').style.display='flex';">
-            <div class="nav-logo-fallback">
-                <div class="nav-logo-icon">EJ</div>
-                <div class="nav-logo-text">Alfaro Madariaga<small>Estudio Jurídico</small></div>
+    <div class="top-header" id="topHeader">
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="https://ejam.cl/imgsitio/LOGOS/LOGO%20GENERAL/logoblanco/EJAM-logocompleto%20blanco.png" alt="EJAM" onerror="this.style.display='none';document.querySelector('.nav-logo-fallback').style.display='flex';">
+                <div class="nav-logo-fallback">
+                    <div class="nav-logo-icon">EJ</div>
+                    <div class="nav-logo-text">Alfaro Madariaga<small>Estudio Jurídico</small></div>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="nav-pill"><span class="nav-pill-dot"></span><span>Ratificación Digital</span></div>
+            </div>
+        </nav>
+        <div class="progress-bar">
+            <div class="progress-bar-inner">
+                <div class="progress-meta">
+                    <span class="progress-label">Progreso del proceso</span>
+                    <span class="progress-pct" id="pctLabel">0 / 3 pasos completados</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
             </div>
         </div>
-        <div class="nav-right">
-            <div class="nav-pill"><span class="nav-pill-dot"></span><span>Ratificación Digital</span></div>
-        </div>
-    </nav>
+    </div>
+
+    <div class="hero-spacer"></div>
 
     <div class="hero">
         <div class="hero-badge"><div class="badge-line"></div><span class="badge-text">Ratificación de Consentimiento</span></div>
@@ -1298,16 +1317,6 @@
     </div>
 
     <div class="hero-divider"><div class="divider-line"></div></div>
-
-    <div class="progress-sticky">
-        <div class="progress-wrap">
-            <div class="progress-meta">
-                <span class="progress-label">Progreso del proceso</span>
-                <span class="progress-pct" id="pctLabel">0 / 3 pasos completados</span>
-            </div>
-            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        </div>
-    </div>
 
     <div class="form-area">
 
@@ -1731,9 +1740,9 @@
                 document.getElementById('rejectScreen').scrollIntoView({ behavior: 'smooth', block: 'center' });
             };
 
-            var progressSticky = document.querySelector('.progress-sticky');
+            var topHeader = document.getElementById('topHeader');
             window.addEventListener('scroll', function() {
-                progressSticky.classList.toggle('compact', window.scrollY > 80);
+                topHeader.classList.toggle('compact', window.scrollY > 80);
             });
 
             updateProgress(1);
