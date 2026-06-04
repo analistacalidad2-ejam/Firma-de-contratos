@@ -275,14 +275,14 @@
         .modal-btn-cancel:hover { background:linear-gradient(135deg,#7f1d1d,#b91c1c); border-color:#ef4444; transform:translateY(-2px); box-shadow:0 10px 28px rgba(239,68,68,.4); }
         .modal-fingerprint { margin-top:20px; padding-top:20px; border-top:1px solid var(--border); font-family:var(--mono); font-size:.52rem; color:var(--dim); letter-spacing:.5px; word-break:break-all; line-height:1.5; }
 
-        .success-wrap { display:none; text-align:center; padding: 40px 20px 60px; }
+        .success-wrap { display:none; text-align:center; padding: 80px 20px 60px; }
         .success-wrap.is-active { display:block; }
 
         .seal-scene {
             position: relative;
             width: var(--seal-circle-size);
             height: var(--seal-circle-size);
-            margin: 0 auto 32px;
+            margin: 0 auto 48px;
             overflow: visible;
         }
 
@@ -648,6 +648,10 @@
                 font-size: .45rem;
             }
 
+            .success-wrap {
+                padding: 60px 16px 60px;
+            }
+
             .success-title {
                 font-size: 1.5rem;
             }
@@ -664,7 +668,7 @@
             }
 
             .seal-scene {
-                margin-bottom: 24px;
+                margin-bottom: 32px;
             }
 
             .site-footer {
@@ -713,6 +717,9 @@
                 height: 46px;
                 font-size: .62rem;
                 letter-spacing: 1px;
+            }
+            .success-wrap {
+                padding: 40px 12px 60px;
             }
         }
     </style>
@@ -1273,15 +1280,21 @@
 
             enviarAGoogleForms(datosParaEnviar, 'successFormStatus');
 
-            requestAnimationFrame(function(){
-                var scene = document.getElementById('sealScene');
-                var rect  = scene.getBoundingClientRect();
-                var viewH = window.innerHeight;
-                var targetTop = window.scrollY + rect.top + rect.height/2 - viewH*0.4;
-                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
-                setTimeout(playStampAnimation, 450);
-            });
+            setTimeout(function() {
+                var scene = document.getElementById('sealScene');
+                var rect = scene.getBoundingClientRect();
+                var absoluteTop = window.pageYOffset + rect.top;
+                var viewH = window.innerHeight;
+                var targetScroll = absoluteTop - (viewH * 0.22);
+
+                targetScroll = Math.max(0, targetScroll);
+
+                window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+
+                setTimeout(playStampAnimation, 600);
+            }, 500);
         };
 
         function playStampAnimation() {
