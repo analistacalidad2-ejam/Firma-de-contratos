@@ -1004,12 +1004,13 @@
             }
         }
 
-        .seal-svg {
+        .seal-img {
             width: 300px;
             height: 300px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 30px rgba(201, 168, 76, 0.3));
             position: absolute;
             inset: 0;
-            filter: drop-shadow(0 10px 30px rgba(201, 168, 76, 0.3));
         }
 
         .seal-glow {
@@ -1082,9 +1083,10 @@
             }
         }
 
-        .hand-svg {
+        .hand-img {
             width: 120px;
             height: 120px;
+            object-fit: contain;
             filter: drop-shadow(0 8px 20px rgba(201, 168, 76, 0.5));
         }
 
@@ -1368,7 +1370,7 @@
                 width: 240px;
                 height: 240px;
             }
-            .seal-svg {
+            .seal-img {
                 width: 240px;
                 height: 240px;
             }
@@ -1376,7 +1378,7 @@
                 width: 240px;
                 height: 240px;
             }
-            .hand-svg {
+            .hand-img {
                 width: 90px;
                 height: 90px;
             }
@@ -1513,80 +1515,11 @@
                 <div class="seal-glow"></div>
                 <div class="stamp-impact-ring"></div>
                 <div class="hand-container" id="handContainer">
-                    <svg class="hand-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="handGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#d4a840"/>
-                                <stop offset="50%" stop-color="#c9a84c"/>
-                                <stop offset="100%" stop-color="#8b6914"/>
-                            </linearGradient>
-                            <filter id="handGlow">
-                                <feGaussianBlur stdDeviation="3" result="blur"/>
-                                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                            </filter>
-                        </defs>
-                        <g transform="translate(15,10) scale(0.9)">
-                            <rect x="35" y="50" width="22" height="35" rx="8" fill="url(#handGrad)" filter="url(#handGlow)"/>
-                            <rect x="10" y="15" width="14" height="55" rx="7" fill="url(#handGrad)" filter="url(#handGlow)"/>
-                            <rect x="30" y="10" width="14" height="50" rx="7" fill="url(#handGrad)" filter="url(#handGlow)"/>
-                            <rect x="50" y="5" width="14" height="55" rx="7" fill="url(#handGrad)" filter="url(#handGlow)"/>
-                            <rect x="70" y="15" width="14" height="50" rx="7" fill="url(#handGrad)" filter="url(#handGlow)"/>
-                            <rect x="5" y="60" width="85" height="30" rx="12" fill="url(#handGrad)" filter="url(#handGlow)"/>
-                        </g>
-                    </svg>
+                    <img src="https://i.ibb.co/8L9PphYG/IMG-85614.png" alt="Mano sellando" class="hand-img">
                 </div>
                 <div class="particle-burst" id="particleBurst"></div>
                 <div class="seal-3d" id="seal3d">
-                    <svg class="seal-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <radialGradient id="sealBg" cx="40%" cy="35%">
-                                <stop offset="0%" stop-color="#1e3a6e"/>
-                                <stop offset="60%" stop-color="#0c1c36"/>
-                                <stop offset="100%" stop-color="#06101f"/>
-                            </radialGradient>
-                            <radialGradient id="sealShine" cx="35%" cy="30%">
-                                <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
-                                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                            </radialGradient>
-                            <radialGradient id="waxGrad" cx="38%" cy="32%">
-                                <stop offset="0%" stop-color="#e2c26e"/>
-                                <stop offset="30%" stop-color="#c9a84c"/>
-                                <stop offset="60%" stop-color="#a07828"/>
-                                <stop offset="100%" stop-color="#6b4e10"/>
-                            </radialGradient>
-                            <filter id="sealShadow" x="-20%" y="-20%" width="140%" height="140%">
-                                <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="rgba(0,0,0,0.8)"/>
-                            </filter>
-                            <filter id="lacre">
-                                <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="5" seed="12" result="noise"/>
-                                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
-                            </filter>
-                            <clipPath id="circleClip"><circle cx="100" cy="100" r="92"/></clipPath>
-                        </defs>
-                        <circle cx="100" cy="104" r="92" fill="rgba(0,0,0,0.4)" filter="url(#sealShadow)"/>
-                        <circle cx="100" cy="100" r="92" fill="url(#sealBg)" filter="url(#lacre)"/>
-                        <circle cx="100" cy="100" r="92" fill="none" stroke="url(#waxGrad)" stroke-width="20" opacity="0.95" filter="url(#lacre)"/>
-                        <circle cx="100" cy="100" r="76" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.6"/>
-                        <circle cx="100" cy="100" r="72" fill="none" stroke="#c9a84c" stroke-width="0.6" opacity="0.4"/>
-                        <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" opacity="0.3"/>
-                        <circle cx="100" cy="100" r="92" fill="url(#sealShine)" clip-path="url(#circleClip)"/>
-                        <g fill="#e2c26e" opacity="0.7">
-                            <polygon points="100,18 103,26 111,26 105,31 107,39 100,34 93,39 95,31 89,26 97,26" transform="scale(0.8) translate(25,8)"/>
-                            <polygon points="100,18 103,26 111,26 105,31 107,39 100,34 93,39 95,31 89,26 97,26" transform="scale(0.8) translate(25,145)"/>
-                        </g>
-                        <circle cx="100" cy="85" r="24" fill="none" stroke="#c9a84c" stroke-width="1.8" opacity="0.5"/>
-                        <circle cx="100" cy="85" r="20" fill="none" stroke="#e2c26e" stroke-width="0.8" opacity="0.3"/>
-                        <polyline points="85,85 95,96 116,76" fill="none" stroke="#e2c26e" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path id="topArc" d="M 20,100 A 80,80 0 0,1 180,100" fill="none"/>
-                        <path id="botArc" d="M 28,112 A 74,74 0 0,0 172,112" fill="none"/>
-                        <text font-family="'Playfair Display',serif" font-size="11.5" fill="#e2c26e" font-weight="700" letter-spacing="3.5">
-                            <textPath href="#topArc" startOffset="8%">ESTUDIO JURÍDICO ALFARO MADARIAGA</textPath>
-                        </text>
-                        <text font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#c9a84c" letter-spacing="2" opacity="0.85">
-                            <textPath href="#botArc" startOffset="12%">RATIFICACIÓN DIGITAL · CHILE</textPath>
-                        </text>
-                        <text x="100" y="110" text-anchor="middle" font-family="'Playfair Display',serif" font-size="14" font-weight="700" fill="#e2c26e" letter-spacing="4">EJAM</text>
-                    </svg>
+                    <img src="https://i.ibb.co/6cvQJDC3/IMG4551.png" alt="Sello de Aceptación" class="seal-img">
                 </div>
                 <div class="seal-shadow"></div>
             </div>
