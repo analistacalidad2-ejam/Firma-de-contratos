@@ -227,8 +227,8 @@
         .meta-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
         .meta-item { background:rgba(255,255,255,.02); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; }
         .meta-label { font-size:.55rem; font-weight:600; letter-spacing:1.8px; text-transform:uppercase; color:var(--dim); margin-bottom:4px; }
-        .meta-val { font-family:'Playfair Display',serif; font-size:.88rem; font-weight:600; color:var(--white); word-break:break-all; }
-        .meta-val.mono { font-family:var(--mono); font-size:.72rem; }
+        .meta-val { font-family:'Inter',sans-serif; font-size:.88rem; font-weight:500; color:var(--white); word-break:break-all; }
+        .meta-val.mono { font-family:'Inter',sans-serif; font-size:.72rem; }
 
         .clause { display:flex; gap:16px; align-items:flex-start; background:rgba(12,28,54,.65); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:12px; cursor:pointer; transition:all .3s cubic-bezier(.34,1.56,.64,1); backdrop-filter:blur(10px); user-select:none; }
         .clause:hover { border-color:rgba(201,168,76,.35); background:rgba(201,168,76,.04); transform:translateX(4px); }
@@ -587,7 +587,7 @@
                 <p class="decl-text">"Declaro bajo juramento que soy la persona titular del RUT <span class="fill" id="decl-rut">____________</span>, que recibí la llamada del <strong>Estudio Jurídico Alfaro Madariaga</strong> con fecha <span class="fill" id="decl-fecha">____________</span>, que escuché y comprendí las condiciones de la propuesta de servicios, y que el presente clic ratifica mi aceptación. Reconozco que el audio de la llamada y esta aceptación digital constituyen respaldo del contrato."</p>
                 <div class="meta-row">
                     <div class="meta-item"><div class="meta-label">RUT registrado</div><div class="meta-val" id="meta-rut">—</div></div>
-                    <div class="meta-item"><div class="meta-label">Correo de contacto</div><div class="meta-val" id="meta-email" style="font-size:.78rem;">—</div></div>
+                    <div class="meta-item"><div class="meta-label">Correo de contacto</div><div class="meta-val" id="meta-email">—</div></div>
                     <div class="meta-item"><div class="meta-label">Fecha y hora exacta</div><div class="meta-val mono" id="meta-fecha">—</div></div>
                     <div class="meta-item"><div class="meta-label">Sello criptográfico</div><div class="meta-val mono" id="meta-hash" style="font-size:.55rem;word-break:break-all;">—</div></div>
                     <div class="meta-item"><div class="meta-label">Canal</div><div class="meta-val">Llamada telefónica</div></div>
