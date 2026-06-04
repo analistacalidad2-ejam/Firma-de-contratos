@@ -778,7 +778,7 @@
             <div class="q-card" id="qRut" data-field="rut">
                 <div class="q-label">RUT del titular <span class="req">*</span></div>
                 <div class="input-wrap">
-                    <input class="text-input" type="text" id="in-rut" placeholder="Ej: 12.345.678-9" maxlength="14" autocomplete="off" inputmode="numeric">
+                    <input class="text-input" type="text" id="in-rut" placeholder="Ej: 12.345.678-9 o 8.454.245-6" maxlength="14" autocomplete="off" inputmode="numeric">
                     <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
                 </div>
                 <div class="err">
@@ -1016,30 +1016,40 @@
         var inputRut = document.getElementById('in-rut');
 
         function validarRut(rut) {
-            var limpio = rut.replace(/[\.\-\s]/g,'').toUpperCase();
-            if(limpio.length < 2) return false;
-            var dv  = limpio.slice(-1);
-            var n   = parseInt(limpio.slice(0,-1),10);
-            if(isNaN(n)) return false;
-            var suma=0, mult=2, x=n;
-            while(x>0){ suma+=(x%10)*mult; x=Math.floor(x/10); mult=mult===7?2:mult+1; }
-            var exp=11-(suma%11);
-            var calc=exp===11?'0':exp===10?'K':String(exp);
-            return calc===dv;
-        }
+    var limpio = rut.replace(/[\.\-\s]/g,'').toUpperCase();
+    if(limpio.length < 2) return false;
+    var dv  = limpio.slice(-1);
+    var cuerpo = limpio.slice(0,-1);
+    if(!/^\d+$/.test(cuerpo)) return false;
+    if(!/^[\dK]$/.test(dv)) return false;
+    var numero = parseInt(cuerpo,10);
+    if(numero < 1000000 || numero > 99999999) return false;
+    var suma=0, mult=2;
+    var rutInvertido = cuerpo.split('').reverse().join('');
+    for(var i=0;i<rutInvertido.length;i++){
+        suma += parseInt(rutInvertido[i]) * mult;
+        mult = mult===7 ? 2 : mult+1;
+    }
+    var resto = suma % 11;
+    var dvEsperado = 11 - resto;
+    if(dvEsperado === 11) dvEsperado = '0';
+    else if(dvEsperado === 10) dvEsperado = 'K';
+    else dvEsperado = dvEsperado.toString();
+    return dv === dvEsperado;
+}
 
-        function formatRut(value) {
-            var v = value.replace(/[^0-9kK]/g,'');
-            if(v.length<2) return value;
-            var dv  = v.slice(-1).toUpperCase();
-            var num = v.slice(0,-1);
-            var formatted='', len=num.length;
-            for(var i=len-1;i>=0;i--){
-                formatted=num[i]+formatted;
-                if((len-i)%3===0 && i>0) formatted='.'+formatted;
-            }
-            return formatted+'-'+dv;
-        }
+       function formatRut(value) {
+    var v = value.replace(/[^0-9kK]/g,'');
+    if(v.length<2) return value;
+    var dv  = v.slice(-1).toUpperCase();
+    var num = v.slice(0,-1);
+    var formatted='', len=num.length;
+    for(var i=len-1;i>=0;i--){
+        formatted=num[i]+formatted;
+        if((len-i)%3===0 && i>0) formatted='.'+formatted;
+    }
+    return formatted+'-'+dv;
+}
 
         inputRut.addEventListener('input', function(){
             var cur = this.selectionStart;
