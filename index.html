@@ -771,22 +771,22 @@
     });
 
     function spawnParticles(container) {
-    for (var i = 0; i < 3; i++) {
-        var ring = document.createElement('div');
-        ring.style.cssText = 
-            'position:absolute;' +
-            'top:50%;left:50%;' +
-            'width:' + (20 + i * 30) + 'px;' +
-            'height:' + (20 + i * 30) + 'px;' +
-            'border-radius:50%;' +
-            'border:2px solid rgba(201,168,76,' + (0.8 - i * 0.25) + ');' +
-            'transform:translate(-50%,-50%) scale(0);' +
-            'animation:impactRing ' + (1.5 + i * 0.3) + 's ease-out ' + (i * 0.15) + 's forwards;' +
-            'pointer-events:none;';
-        container.appendChild(ring);
-        setTimeout(function() { ring.remove(); }, 2500);
-    }
-}
+        var count = 40;
+        for (var i = 0; i < count; i++) {
+            var p     = document.createElement('div');
+            p.classList.add('particle');
+            var angle = (Math.PI*2*i)/count;
+            var dist  = 60 + Math.random()*100;
+            p.style.setProperty('--tx', Math.cos(angle)*dist+'px');
+            p.style.setProperty('--ty', Math.sin(angle)*dist+'px');
+            p.style.animationDelay  = (0.6+Math.random()*0.4)+'s';
+            var sz = (4+Math.random()*8)+'px';
+            p.style.width  = sz;
+            p.style.height = sz;
+            p.style.background = Math.random()>.5 ? '#e2c26e' : '#c9a84c';
+            container.appendChild(p);
+            setTimeout(function(){ p.remove(); }, 2200);
+        }
         for (var j = 0; j < 25; j++) {
             var sp    = document.createElement('div');
             sp.classList.add('sparkle');
