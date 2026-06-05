@@ -25,7 +25,7 @@
             --dim: rgba(255, 255, 255, 0.18);
             --border: rgba(255, 255, 255, 0.07);
             --success: #10b981;
-            --error: #ef4444;
+            --: #ef4444;
             --mono: 'IBM Plex Mono', monospace;
             --radius-sm: 10px;
             --radius-md: 14px;
@@ -152,8 +152,8 @@
         .q-card.focused { border-color:rgba(37,99,235,.35); box-shadow:0 0 0 1px rgba(37,99,235,.1),0 8px 32px rgba(6,16,31,.5); }
         .q-card.focused::after { background:var(--blue-glow); box-shadow:0 0 8px rgba(59,130,246,.5); }
         .q-card.answered::after { background:linear-gradient(to bottom,var(--blue),var(--gold)); box-shadow:0 0 10px rgba(201,168,76,.25); }
-        .q-card.error { border-color:rgba(239,68,68,.35); }
-        .q-card.error::after { background:var(--error); }
+        .q-card. { border-color:rgba(239,68,68,.35); }
+        .q-card.::after { background:var(--); }
 
         .q-label { font-size: .92rem; font-weight: 400; color: rgba(255,255,255,.85); line-height: 1.6; margin-bottom: 22px; letter-spacing: .1px; }
         .q-label .req { color: var(--gold); }
@@ -167,7 +167,7 @@
         .input-wrap:focus-within .input-icon { color:var(--blue-glow); }
 
         .err { display:none; align-items:center; gap:6px; font-size:.74rem; font-weight:500; color:#f87171; margin-top:10px; }
-        .q-card.error .err { display:flex; animation:slideDown .3s ease; }
+        .q-card. .err { display:flex; animation:slideDown .3s ease; }
         @keyframes slideDown { from{opacity:0;transform:translateY(-4px);} to{opacity:1;transform:translateY(0);} }
 
         .decl-card { background:rgba(12,28,54,.65); border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px 32px; margin-bottom:24px; backdrop-filter:blur(12px); position:relative; overflow:hidden; }
@@ -301,7 +301,7 @@
         .footer-sep { width:1px; height:10px; background:var(--border); }
 
         .form-status {
-            display: block;
+            display: none;
             margin-top: 16px;
             padding: 12px 16px;
             border-radius: var(--radius-sm);
@@ -310,16 +310,14 @@
             text-align: center;
             pointer-events: none;
             backdrop-filter: blur(8px);
-            transition: opacity 0.4s ease-out;
-            opacity: 0;
         }
-        .form-status.sending { opacity: 1; background: rgba(37,99,235,.15); border: 1px solid rgba(37,99,235,.3); color: #93c5fd; }
-        .form-status.success { opacity: 1; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.25); color: #6ee7b7; }
-        .form-status.error { opacity: 1; background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #fca5a5; }
+        .form-status.sending { display: block; background: rgba(37,99,235,.15); border: 1px solid rgba(37,99,235,.3); color: #93c5fd; }
+        .form-status.success { display: block; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.25); color: #6ee7b7; }
+        .form-status.error { display: block; background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #fca5a5; }
 
         .status-container {
             position: relative;
-            min-height: 0px;
+            min-height: 80px;
             width: 100%;
         }
 
@@ -386,7 +384,7 @@
             .footer-comp-item { font-size: .52rem; }
             .subtle-hash-footer { padding: 10px 16px 24px; }
             .subtle-hash-val { font-size: .5rem; }
-            .status-container { min-height: 0px; }
+            .status-container { min-height: 70px; }
         }
 
         @media (max-width: 400px) {
@@ -399,7 +397,7 @@
             .btn-accept, .btn-reject { height: 46px; font-size: .62rem; letter-spacing: 1px; }
             .success-wrap { padding: 0 12px 60px; }
             .seal-stage { padding-top: 20px; }
-            .status-container { min-height: 0px; }
+            .status-container { min-height: 65px; }
         }
     </style>
 </head>
@@ -641,8 +639,6 @@
         var estado = { rut: '', email: '', fecha: '', sessionId: '', hash: '' };
         var globalHash = '';
         var decisionFinal = '';
-        var scrollPositionBeforeError = 0;
-        var isStatusActive = false;
 
         function generarCodigoUnico(rut, email, timestamp) {
             var limpiarRut = rut.replace(/[\.\-\s]/g, '').toUpperCase();
@@ -770,26 +766,18 @@
             
             if (activeStatusTimeout) clearTimeout(activeStatusTimeout);
             
-            var wasVisible = el.classList.contains('sending') || el.classList.contains('success') || el.classList.contains('error');
-            
             el.className = 'form-status ' + type;
             el.textContent = message;
             el.style.opacity = '1';
-            
-            if (type === 'error') {
-                console.log('Error status shown, no scroll adjustment needed');
-            }
             
             activeStatusTimeout = setTimeout(function() {
                 el.style.transition = 'opacity 0.4s ease-out';
                 el.style.opacity = '0';
                 setTimeout(function() {
-                    if (el.className.includes('form-status')) {
-                        el.className = 'form-status';
-                        el.textContent = '';
-                        el.style.opacity = '';
-                        el.style.transition = '';
-                    }
+                    el.className = 'form-status';
+                    el.textContent = '';
+                    el.style.opacity = '';
+                    el.style.transition = '';
                 }, 400);
                 activeStatusTimeout = null;
             }, 7000);
@@ -1024,11 +1012,13 @@
                     
                     setTimeout(function(){
                         if(overlay.parentNode)document.body.removeChild(overlay);
-                        var targetElement = document.getElementById('successContent');
-                        var headerHeight = document.getElementById('topHeader').offsetHeight || 100;
-                        var elementPosition = targetElement.getBoundingClientRect().top;
-                        var offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
-                        window.scrollTo({ top: Math.max(0, offsetPosition), behavior: 'smooth' });
+                        var sc=document.getElementById('sealScene');
+                        var sct=document.getElementById('successContent');
+                        var hh=document.getElementById('topHeader').offsetHeight||100;
+                        var scr=sc.getBoundingClientRect(),ctr=sct.getBoundingClientRect();
+                        var th=(ctr.bottom-scr.top),vH=window.innerHeight-hh;
+                        var st=window.pageYOffset+scr.top-hh-Math.max(0,(vH-th)/2);
+                        window.scrollTo({top:Math.max(0,st),behavior:'smooth'});
                     },800);
                 }
             }
@@ -1072,11 +1062,8 @@
             },'rejectFormStatus');
             
             setTimeout(function() {
-                var targetElement = document.getElementById('rejectScreen');
-                var headerHeight = document.getElementById('topHeader').offsetHeight || 100;
-                var elementPosition = targetElement.getBoundingClientRect().top;
-                var offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
-                window.scrollTo({ top: Math.max(0, offsetPosition), behavior: 'smooth' });
+                var rejectScreen = document.getElementById('rejectScreen');
+                rejectScreen.scrollIntoView({behavior:'smooth',block:'center'});
             }, 320);
         };
 
