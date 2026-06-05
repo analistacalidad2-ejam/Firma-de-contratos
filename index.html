@@ -1,3 +1,6 @@
+Tienes toda la razón. Aquí está el código completo con las +900 líneas, toda la funcionalidad original intacta y la animación del sello corregida exactamente como la pediste: mano centrada que baja, sella, el sello sube y luego aparece el contenido textual debajo con transición profesional.
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -223,32 +226,39 @@
         .modal-btn-cancel:hover { background:linear-gradient(135deg,#7f1d1d,#b91c1c); border-color:#ef4444; transform:translateY(-2px); box-shadow:0 10px 28px rgba(239,68,68,.4); }
         .modal-fingerprint { margin-top:20px; padding-top:20px; border-top:1px solid var(--border); font-family:var(--mono); font-size:.52rem; color:var(--dim); letter-spacing:.5px; word-break:break-all; line-height:1.5; }
 
-        .success-wrap { display:none; text-align:center; padding: 80px 20px 60px; }
-        .success-wrap.is-active { display:block; }
+        .success-wrap { display:none; text-align:center; padding: 0 20px 60px; }
+        .success-wrap.is-active { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-height:100vh; padding-top:80px; }
 
-        .seal-scene { position: relative; width: var(--seal-circle-size); height: var(--seal-circle-size); margin: 0 auto 48px; overflow: visible; }
-        .seal-glow { position: absolute; inset: -40px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,.22) 0%, rgba(201,168,76,.06) 45%, transparent 70%); animation: glowPulse 3s ease-in-out infinite; pointer-events: none; z-index: 0; }
+        .seal-stage { position:relative; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:75vh; transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .seal-stage.compact { min-height:auto; justify-content:flex-start; padding-top:20px; }
+
+        .seal-scene { position:relative; width:var(--seal-circle-size); height:var(--seal-circle-size); margin:0 auto; overflow:visible; transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .seal-scene.compact { margin-bottom:24px; }
+        .seal-glow { position:absolute; inset:-40px; border-radius:50%; background:radial-gradient(circle, rgba(201,168,76,.22) 0%, rgba(201,168,76,.06) 45%, transparent 70%); animation:glowPulse 3s ease-in-out infinite; pointer-events:none; z-index:0; }
         @keyframes glowPulse { 0%,100% { opacity:.4; transform:scale(.9); } 50% { opacity:.8; transform:scale(1.05); } }
-        .seal-disc { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f8f9fb 40%, #eef1f5 100%); box-shadow: 0 0 0 1px rgba(201,168,76,.2), 0 0 0 8px rgba(255,255,255,.06), 0 0 0 16px rgba(255,255,255,.03), 0 8px 40px rgba(0,0,0,.4), 0 0 80px rgba(201,168,76,.1); z-index: 1; overflow: hidden; }
-        .seal-disc::before { content: ''; position: absolute; inset: 10px; border-radius: 50%; border: 1px solid rgba(201,168,76,.2); pointer-events: none; }
-        .seal-disc::after { content: ''; position: absolute; inset: 18px; border-radius: 50%; border: 1px solid rgba(201,168,76,.1); pointer-events: none; }
-        .seal-logo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; padding-top: 12px; }
-        .seal-logo img { width: calc(var(--seal-circle-size) * 1.35); height: calc(var(--seal-circle-size) * 1.35); object-fit: contain; object-position: center; display: block; }
-        .seal-ring { position: absolute; inset: -10px; border-radius: 50%; border: 3px solid rgba(201,168,76,.6); pointer-events: none; z-index: 5; transform: scale(0); opacity: 0; }
-        .seal-ring.animate { animation: impactRing 1.8s ease-out forwards; }
+        .seal-disc { position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 50% 50%, #ffffff 0%, #f8f9fb 40%, #eef1f5 100%); box-shadow:0 0 0 1px rgba(201,168,76,.2),0 0 0 8px rgba(255,255,255,.06),0 0 0 16px rgba(255,255,255,.03),0 8px 40px rgba(0,0,0,.4),0 0 80px rgba(201,168,76,.1); z-index:1; overflow:hidden; }
+        .seal-disc::before { content:''; position:absolute; inset:10px; border-radius:50%; border:1px solid rgba(201,168,76,.2); pointer-events:none; }
+        .seal-disc::after { content:''; position:absolute; inset:18px; border-radius:50%; border:1px solid rgba(201,168,76,.1); pointer-events:none; }
+        .seal-logo { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:2; padding-top:12px; }
+        .seal-logo img { width:calc(var(--seal-circle-size) * 1.35); height:calc(var(--seal-circle-size) * 1.35); object-fit:contain; object-position:center; display:block; }
+        .seal-ring { position:absolute; inset:-10px; border-radius:50%; border:3px solid rgba(201,168,76,.6); pointer-events:none; z-index:5; transform:scale(0); opacity:0; }
+        .seal-ring.animate { animation:impactRing 2s ease-out forwards; }
         @keyframes impactRing { 0% { transform:scale(.15); opacity:1; } 60% { transform:scale(1.3); opacity:.5; } 100% { transform:scale(2); opacity:0; } }
-        .seal-particles { position: absolute; top: 50%; left: 50%; width: 0; height: 0; pointer-events: none; z-index: 6; }
-        .particle { position: absolute; border-radius: 50%; animation: particleFly 1.5s ease-out forwards; }
+        .seal-particles { position:absolute; top:50%; left:50%; width:0; height:0; pointer-events:none; z-index:6; }
+        .particle { position:absolute; border-radius:50%; animation:particleFly 2s ease-out forwards; }
         @keyframes particleFly { 0% { transform:translate(0,0) scale(1); opacity:1; } 100% { transform:translate(var(--tx),var(--ty)) scale(0); opacity:0; } }
-        .sparkle { position: absolute; border-radius: 50%; animation: sparkleAnim 2s ease-out forwards; box-shadow: 0 0 6px #e2c26e, 0 0 12px #c9a84c; }
+        .sparkle { position:absolute; border-radius:50%; animation:sparkleAnim 2.5s ease-out forwards; box-shadow:0 0 6px #e2c26e,0 0 12px #c9a84c; }
         @keyframes sparkleAnim { 0% { transform:translate(0,0) scale(1); opacity:1; } 50% { opacity:.8; } 100% { transform:translate(var(--sx),var(--sy)) scale(0); opacity:0; } }
-        .seal-hand { position: absolute; top: 50%; left: 50%; width: var(--hand-size); height: var(--hand-size); pointer-events: none; z-index: 10; opacity: 0; transform: translate(-50%, calc(-72% - 600px)) rotate(-25deg); }
-        .seal-hand img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; filter: drop-shadow(0 8px 20px rgba(201,168,76,.5)); }
-        .seal-hand.animate { animation: handStamp 1.8s cubic-bezier(.25,.46,.45,.94) forwards; }
-        @keyframes handStamp { 0% { transform:translate(-50%, calc(-72% - 600px)) rotate(-25deg); opacity:0; } 25% { opacity:1; } 52% { transform:translate(-50%, -72%) rotate(0deg); opacity:1; } 65% { transform:translate(-50%, calc(-72% - 18px)) rotate(-3deg); opacity:1; } 75% { transform:translate(-50%, calc(-72% - 6px)) rotate(-1deg); opacity:1; } 100% { transform:translate(-50%, calc(-72% - 500px)) rotate(-15deg); opacity:0; } }
-        .seal-disc, .seal-logo { opacity: 0; transform: scale(0.3); transition: none; }
-        .seal-disc.reveal, .seal-logo.reveal { animation: sealReveal 1.2s cubic-bezier(.34,1.56,.64,1) forwards; animation-delay: .7s; }
+        .seal-hand { position:absolute; top:50%; left:50%; width:var(--hand-size); height:var(--hand-size); pointer-events:none; z-index:10; opacity:0; transform:translate(-50%, calc(-72% - 500px)) rotate(-25deg); }
+        .seal-hand img { width:100%; height:100%; object-fit:contain; object-position:center; display:block; filter:drop-shadow(0 8px 20px rgba(201,168,76,.5)); }
+        .seal-hand.animate { animation:handStamp 2s cubic-bezier(.25,.46,.45,.94) forwards; }
+        @keyframes handStamp { 0% { transform:translate(-50%, calc(-72% - 500px)) rotate(-25deg); opacity:0; } 20% { opacity:1; } 50% { transform:translate(-50%, -72%) rotate(0deg); opacity:1; } 62% { transform:translate(-50%, calc(-72% - 14px)) rotate(-3deg); opacity:1; } 72% { transform:translate(-50%, calc(-72% - 4px)) rotate(-1deg); opacity:1; } 100% { transform:translate(-50%, calc(-72% - 400px)) rotate(-15deg); opacity:0; } }
+        .seal-disc, .seal-logo { opacity:0; transform:scale(0.3); transition:none; }
+        .seal-disc.reveal, .seal-logo.reveal { animation:sealReveal 1.4s cubic-bezier(.34,1.56,.64,1) forwards; animation-delay:.8s; }
         @keyframes sealReveal { 0% { opacity:0; transform:scale(.3) rotate(-15deg); } 60% { opacity:1; transform:scale(1.06) rotate(3deg); } 80% { transform:scale(.96) rotate(-1deg); } 100% { opacity:1; transform:scale(1) rotate(0); } }
+
+        .success-content { opacity:0; transform:translateY(40px); transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); text-align:center; width:100%; max-width:500px; margin:0 auto; }
+        .success-content.visible { opacity:1; transform:translateY(0); }
 
         .success-title { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--white); margin-bottom:14px; }
         .success-body { font-size:.9rem; font-weight:300; color:var(--muted); line-height:1.75; max-width:400px; margin:0 auto 28px; }
@@ -278,7 +288,7 @@
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 
         @media (max-width: 768px) {
-            :root { --seal-size: 160px; --seal-circle-size: 180px; --seal-stage-height: 210px; --hand-size: 340px; }
+            :root { --seal-size: 160px; --seal-circle-size: 180px; --seal-stage-height: 210px; --hand-size: 300px; }
             .navbar { padding: 0 16px; height: 56px; }
             .nav-logo img { height: 26px; }
             .nav-pill { padding: 4px 10px; }
@@ -322,12 +332,17 @@
             .modal-body { font-size: .78rem; }
             .modal-btn-confirm, .modal-btn-cancel { height: 44px; font-size: .66rem; }
             .modal-fingerprint { font-size: .45rem; }
-            .success-wrap { padding: 60px 16px 60px; }
+            .success-wrap { padding: 0 16px 60px; padding-top:60px; }
+            .seal-stage { min-height:65vh; }
             .success-title { font-size: 1.5rem; }
             .success-body { font-size: .8rem; max-width: 100%; padding: 0 8px; }
             .reg-badge { padding: 14px 28px; }
             .reg-val { font-size: 1rem; }
-            .seal-scene { margin-bottom: 32px; }
+            .seal-scene { margin-bottom: 0; }
+            .seal-scene.compact { margin-bottom: 18px; }
+            .seal-logo img { width: calc(var(--seal-circle-size) * 1.35); height: calc(var(--seal-circle-size) * 1.35); }
+            .seal-hand { width: var(--hand-size); height: var(--hand-size); }
+            @keyframes handStamp { 0% { transform:translate(-50%, calc(-72% - 350px)) rotate(-25deg); opacity:0; } 20% { opacity:1; } 50% { transform:translate(-50%, -72%) rotate(0deg); opacity:1; } 62% { transform:translate(-50%, calc(-72% - 10px)) rotate(-3deg); opacity:1; } 72% { transform:translate(-50%, calc(-72% - 3px)) rotate(-1deg); opacity:1; } 100% { transform:translate(-50%, calc(-72% - 280px)) rotate(-15deg); opacity:0; } }
             .site-footer { flex-direction: column; align-items: flex-start; padding: 16px 16px; gap: 10px; }
             .site-footer img { height: 18px; }
             .footer-text { font-size: .6rem; }
@@ -343,7 +358,8 @@
             .decl-card { padding: 16px 12px; }
             .clause { padding: 14px 14px; }
             .btn-accept, .btn-reject { height: 46px; font-size: .62rem; letter-spacing: 1px; }
-            .success-wrap { padding: 40px 12px 60px; }
+            .success-wrap { padding: 0 12px 60px; padding-top:50px; }
+            .seal-stage { min-height:60vh; }
         }
     </style>
 </head>
@@ -495,27 +511,30 @@
         </div>
 
         <div class="success-wrap" id="successScreen">
-            <div class="seal-scene" id="sealScene">
-                <div class="seal-glow"></div>
-                <div class="seal-disc" id="sealDisc"></div>
-                <div class="seal-logo" id="sealLogo">
-                    <img src="https://i.ibb.co/6cvQJDC3/IMG4551.png" alt="Sello de Aceptación">
+            <div class="seal-stage" id="sealStage">
+                <div class="seal-scene" id="sealScene">
+                    <div class="seal-glow"></div>
+                    <div class="seal-disc" id="sealDisc"></div>
+                    <div class="seal-logo" id="sealLogo">
+                        <img src="https://i.ibb.co/6cvQJDC3/IMG4551.png" alt="Sello de Aceptación">
+                    </div>
+                    <div class="seal-ring" id="sealRing"></div>
+                    <div class="seal-particles" id="sealParticles"></div>
+                    <div class="seal-hand" id="sealHand">
+                        <img src="https://i.ibb.co/8L9PphYG/IMG-85614.png" alt="Mano sellando">
+                    </div>
                 </div>
-                <div class="seal-ring" id="sealRing"></div>
-                <div class="seal-particles" id="sealParticles"></div>
-                <div class="seal-hand" id="sealHand">
-                    <img src="https://i.ibb.co/8L9PphYG/IMG-85614.png" alt="Mano sellando">
+                <div class="success-content" id="successContent">
+                    <h2 class="success-title">Propuesta de Servicios Aceptada</h2>
+                    <p class="success-body">Su aceptación ha quedado registrada. Se le enviará una copia del contrato suscrito telefonicamente al correo electrónico proporcionado y será contactado en un plazo de 24 horas hábiles por un abogado especialista para coordinar los siguientes pasos.</p>
+                    <div class="reg-badge">
+                        <span class="reg-label">N° de Registro</span>
+                        <span class="reg-val" id="reg-num">—</span>
+                        <span class="reg-hash" id="reg-hash">—</span>
+                    </div>
+                    <div class="form-status" id="successFormStatus"></div>
                 </div>
             </div>
-
-            <h2 class="success-title">Propuesta de Servicios Aceptada</h2>
-            <p class="success-body">Su aceptación ha quedado registrada. Se le enviará una copia del contrato suscrito telefonicamente al correo electrónico proporcionado y será contactado en un plazo de 24 horas hábiles por un abogado especialista para coordinar los siguientes pasos.</p>
-            <div class="reg-badge">
-                <span class="reg-label">N° de Registro</span>
-                <span class="reg-val" id="reg-num">—</span>
-                <span class="reg-hash" id="reg-hash">—</span>
-            </div>
-            <div class="form-status" id="successFormStatus"></div>
         </div>
 
         <div class="success-wrap" id="rejectScreen">
@@ -850,13 +869,13 @@
                 var dist  = 60 + Math.random()*100;
                 p.style.setProperty('--tx', Math.cos(angle)*dist+'px');
                 p.style.setProperty('--ty', Math.sin(angle)*dist+'px');
-                p.style.animationDelay  = (0.6+Math.random()*0.4)+'s';
+                p.style.animationDelay  = (0.8+Math.random()*0.6)+'s';
                 var sz = (4+Math.random()*8)+'px';
                 p.style.width  = sz;
                 p.style.height = sz;
                 p.style.background = Math.random()>.5 ? '#e2c26e' : '#c9a84c';
                 container.appendChild(p);
-                setTimeout(function(){ p.remove(); }, 2200);
+                setTimeout(function(){ p.remove(); }, 2700);
             }
             for (var j = 0; j < 25; j++) {
                 var sp    = document.createElement('div');
@@ -865,12 +884,12 @@
                 var sDist = 30+Math.random()*80;
                 sp.style.setProperty('--sx', Math.cos(sAng)*sDist+'px');
                 sp.style.setProperty('--sy', Math.sin(sAng)*sDist+'px');
-                sp.style.animationDelay = (0.5+Math.random()*0.6)+'s';
+                sp.style.animationDelay = (0.7+Math.random()*0.8)+'s';
                 var ssz = (2+Math.random()*4)+'px';
                 sp.style.width  = ssz;
                 sp.style.height = ssz;
                 container.appendChild(sp);
-                setTimeout(function(){ sp.remove(); }, 2700);
+                setTimeout(function(){ sp.remove(); }, 3200);
             }
         }
 
@@ -891,16 +910,43 @@
                 registro: codigoRegistro, ip: document.getElementById('meta-ip').textContent
             };
             enviarAGoogleForms(datosParaEnviar, 'successFormStatus');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            var sealStage = document.getElementById('sealStage');
+            var sealScene = document.getElementById('sealScene');
+            var successContent = document.getElementById('successContent');
+
+            sealStage.classList.remove('compact');
+            sealScene.classList.remove('compact');
+            successContent.classList.remove('visible');
+
+            sealStage.style.minHeight = '75vh';
+            sealStage.style.justifyContent = 'center';
+
             setTimeout(function() {
-                var scene = document.getElementById('sealScene');
-                var rect = scene.getBoundingClientRect();
+                var rect = sealScene.getBoundingClientRect();
                 var absoluteTop = window.pageYOffset + rect.top;
                 var viewH = window.innerHeight;
-                var targetScroll = Math.max(0, absoluteTop - (viewH * 0.22));
+                var targetScroll = Math.max(0, absoluteTop - (viewH * 0.18));
                 window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-                setTimeout(playStampAnimation, 600);
-            }, 500);
+            }, 200);
+
+            setTimeout(function() {
+                playStampAnimation();
+
+                setTimeout(function() {
+                    sealStage.classList.add('compact');
+                    sealScene.classList.add('compact');
+                    successContent.classList.add('visible');
+
+                    setTimeout(function() {
+                        var contentRect = successContent.getBoundingClientRect();
+                        var contentTop = window.pageYOffset + contentRect.top;
+                        var viewH = window.innerHeight;
+                        var scrollToContent = Math.max(0, contentTop - (viewH * 0.15));
+                        window.scrollTo({ top: scrollToContent, behavior: 'smooth' });
+                    }, 500);
+                }, 2000);
+            }, 700);
         };
 
         function playStampAnimation() {
@@ -911,20 +957,23 @@
             void disc.offsetWidth;
             disc.classList.add('reveal');
             logo.classList.add('reveal');
+
             var ring = document.getElementById('sealRing');
             ring.classList.remove('animate');
             void ring.offsetWidth;
-            ring.style.animationDelay = '0.75s';
+            ring.style.animationDelay = '0.9s';
             ring.classList.add('animate');
+
             var hand = document.getElementById('sealHand');
             hand.classList.remove('animate');
             void hand.offsetWidth;
             hand.classList.add('animate');
+
             setTimeout(function(){
                 var burst = document.getElementById('sealParticles');
                 burst.innerHTML = '';
                 spawnParticles(burst);
-            }, 900);
+            }, 1100);
         }
 
         window.doReject = function() {
@@ -955,3 +1004,5 @@
     })();
     </script>
 </body>
+</html>
+```
