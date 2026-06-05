@@ -223,14 +223,47 @@
         .modal-btn-cancel:hover { background:linear-gradient(135deg,#7f1d1d,#b91c1c); border-color:#ef4444; transform:translateY(-2px); box-shadow:0 10px 28px rgba(239,68,68,.4); }
         .modal-fingerprint { margin-top:20px; padding-top:20px; border-top:1px solid var(--border); font-family:var(--mono); font-size:.52rem; color:var(--dim); letter-spacing:.5px; word-break:break-all; line-height:1.5; }
 
-        .success-wrap { display:none; text-align:center; padding: 0 20px 60px; }
-        .success-wrap.is-active { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-height:100vh; padding-top:80px; }
+        .success-wrap { display:none; }
+        .success-wrap.is-active { display:block; }
 
-        .seal-stage { position:relative; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:75vh; transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
-        .seal-stage.compact { min-height:auto; justify-content:flex-start; padding-top:20px; }
+        .seal-stage {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 75vh;
+            overflow: hidden;
+            padding: 20px 0;
+            transition: min-height 0.8s cubic-bezier(0.25,0.46,0.45,0.94),
+                        justify-content 0.8s cubic-bezier(0.25,0.46,0.45,0.94),
+                        padding 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
 
-        .seal-scene { position:relative; width:var(--seal-circle-size); height:var(--seal-circle-size); margin:0 auto; overflow:visible; transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
-        .seal-scene.compact { margin-bottom:24px; }
+        .seal-stage.compact {
+            min-height: auto;
+            justify-content: flex-start;
+            padding-top: 32px;
+            padding-bottom: 0;
+        }
+
+        .seal-scene {
+            position: relative;
+            width: var(--seal-circle-size);
+            height: var(--seal-circle-size);
+            margin: 0 auto;
+            overflow: visible;
+            flex-shrink: 0;
+            transition: margin-bottom 0.7s cubic-bezier(0.25,0.46,0.45,0.94),
+                        transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+            margin-bottom: 0;
+        }
+
+        .seal-scene.compact {
+            margin-bottom: 28px;
+        }
+
         .seal-glow { position:absolute; inset:-40px; border-radius:50%; background:radial-gradient(circle, rgba(201,168,76,.22) 0%, rgba(201,168,76,.06) 45%, transparent 70%); animation:glowPulse 3s ease-in-out infinite; pointer-events:none; z-index:0; }
         @keyframes glowPulse { 0%,100% { opacity:.4; transform:scale(.9); } 50% { opacity:.8; transform:scale(1.05); } }
         .seal-disc { position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 50% 50%, #ffffff 0%, #f8f9fb 40%, #eef1f5 100%); box-shadow:0 0 0 1px rgba(201,168,76,.2),0 0 0 8px rgba(255,255,255,.06),0 0 0 16px rgba(255,255,255,.03),0 8px 40px rgba(0,0,0,.4),0 0 80px rgba(201,168,76,.1); z-index:1; overflow:hidden; }
@@ -246,16 +279,66 @@
         @keyframes particleFly { 0% { transform:translate(0,0) scale(1); opacity:1; } 100% { transform:translate(var(--tx),var(--ty)) scale(0); opacity:0; } }
         .sparkle { position:absolute; border-radius:50%; animation:sparkleAnim 2.5s ease-out forwards; box-shadow:0 0 6px #e2c26e,0 0 12px #c9a84c; }
         @keyframes sparkleAnim { 0% { transform:translate(0,0) scale(1); opacity:1; } 50% { opacity:.8; } 100% { transform:translate(var(--sx),var(--sy)) scale(0); opacity:0; } }
-        .seal-hand { position:absolute; top:50%; left:50%; width:var(--hand-size); height:var(--hand-size); pointer-events:none; z-index:10; opacity:0; transform:translate(-50%, calc(-72% - 500px)) rotate(-25deg); }
-        .seal-hand img { width:100%; height:100%; object-fit:contain; object-position:center; display:block; filter:drop-shadow(0 8px 20px rgba(201,168,76,.5)); }
-        .seal-hand.animate { animation:handStamp 2s cubic-bezier(.25,.46,.45,.94) forwards; }
-        @keyframes handStamp { 0% { transform:translate(-50%, calc(-72% - 500px)) rotate(-25deg); opacity:0; } 20% { opacity:1; } 50% { transform:translate(-50%, -72%) rotate(0deg); opacity:1; } 62% { transform:translate(-50%, calc(-72% - 14px)) rotate(-3deg); opacity:1; } 72% { transform:translate(-50%, calc(-72% - 4px)) rotate(-1deg); opacity:1; } 100% { transform:translate(-50%, calc(-72% - 400px)) rotate(-15deg); opacity:0; } }
-        .seal-disc, .seal-logo { opacity:0; transform:scale(0.3); transition:none; }
-        .seal-disc.reveal, .seal-logo.reveal { animation:sealReveal 1.4s cubic-bezier(.34,1.56,.64,1) forwards; animation-delay:.8s; }
-        @keyframes sealReveal { 0% { opacity:0; transform:scale(.3) rotate(-15deg); } 60% { opacity:1; transform:scale(1.06) rotate(3deg); } 80% { transform:scale(.96) rotate(-1deg); } 100% { opacity:1; transform:scale(1) rotate(0); } }
 
-        .success-content { opacity:0; transform:translateY(40px); transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); text-align:center; width:100%; max-width:500px; margin:0 auto; }
-        .success-content.visible { opacity:1; transform:translateY(0); }
+        .seal-hand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: var(--hand-size);
+            height: var(--hand-size);
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transform: translate(-50%, calc(-72% - 600px)) rotate(-20deg);
+            will-change: transform, opacity;
+        }
+
+        .seal-hand img { width:100%; height:100%; object-fit:contain; object-position:center; display:block; filter:drop-shadow(0 8px 20px rgba(201,168,76,.5)); }
+
+        .seal-hand.animate {
+            animation: handStampDesktop 2.4s cubic-bezier(.25,.46,.45,.94) forwards;
+        }
+
+        @keyframes handStampDesktop {
+            0%   { transform: translate(-50%, calc(-72% - 600px)) rotate(-20deg); opacity: 0; }
+            12%  { opacity: 1; }
+            48%  { transform: translate(-50%, -72%) rotate(0deg); opacity: 1; }
+            56%  { transform: translate(-50%, calc(-72% + 10px)) rotate(1deg); opacity: 1; }
+            64%  { transform: translate(-50%, calc(-72% - 8px)) rotate(-2deg); opacity: 1; }
+            72%  { transform: translate(-50%, calc(-72% - 3px)) rotate(-1deg); opacity: 1; }
+            80%  { transform: translate(-50%, -72%) rotate(0deg); opacity: 1; }
+            100% { transform: translate(-50%, calc(-72% - 560px)) rotate(-18deg); opacity: 0; }
+        }
+
+        .seal-disc, .seal-logo { opacity:0; transform:scale(0.3) rotate(-10deg); }
+
+        .seal-disc.reveal, .seal-logo.reveal {
+            animation: sealReveal 1.2s cubic-bezier(.34,1.56,.64,1) forwards;
+        }
+
+        @keyframes sealReveal {
+            0%   { opacity:0; transform:scale(.3) rotate(-10deg); }
+            55%  { opacity:1; transform:scale(1.05) rotate(2deg); }
+            75%  { transform:scale(.97) rotate(-1deg); }
+            100% { opacity:1; transform:scale(1) rotate(0deg); }
+        }
+
+        .success-content {
+            opacity: 0;
+            transform: translateY(48px);
+            transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94),
+                        transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px 80px;
+        }
+
+        .success-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .success-title { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--white); margin-bottom:14px; }
         .success-body { font-size:.9rem; font-weight:300; color:var(--muted); line-height:1.75; max-width:400px; margin:0 auto 28px; }
@@ -264,6 +347,20 @@
         .reg-val { font-family:'Playfair Display',serif; font-size:1.25rem; letter-spacing:3px; color:var(--gold-light); font-weight:600; }
         .reg-hash { font-family:var(--mono); font-size:.55rem; color:var(--dim); letter-spacing:.3px; margin-top:4px; word-break:break-all; }
         .reject-ring { width:96px; height:96px; border-radius:50%; border:1px solid rgba(239,68,68,.3); display:inline-flex; align-items:center; justify-content:center; margin-bottom:28px; }
+
+        .success-reject-wrap {
+            display: none;
+            text-align: center;
+            padding: 0 20px 60px;
+        }
+        .success-reject-wrap.is-active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
 
         .subtle-hash-footer { position:relative; z-index:2; text-align:center; padding:12px 20px 28px; opacity:.55; transition:opacity .5s; }
         .subtle-hash-footer:hover { opacity:.9; }
@@ -285,7 +382,12 @@
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 
         @media (max-width: 768px) {
-            :root { --seal-size: 160px; --seal-circle-size: 180px; --seal-stage-height: 210px; --hand-size: 300px; }
+            :root {
+                --seal-size: 150px;
+                --seal-circle-size: 170px;
+                --hand-size: 280px;
+            }
+
             .navbar { padding: 0 16px; height: 56px; }
             .nav-logo img { height: 26px; }
             .nav-pill { padding: 4px 10px; }
@@ -295,7 +397,7 @@
             .top-header.compact .progress-bar-inner { padding: 6px 0; }
             .progress-meta { flex-direction: column; align-items: flex-start; gap: 4px; }
             .progress-label, .progress-pct { font-size: .6rem; }
-            .hero-spacer { height: 125px; }
+            .hero-spacer { height: 110px; }
             .hero { padding: 0 16px; }
             .hero-title { font-size: clamp(1.8rem, 6vw, 2.4rem); margin-bottom: 16px; }
             .hero-subtitle { font-size: .85rem; max-width: 100%; }
@@ -329,17 +431,44 @@
             .modal-body { font-size: .78rem; }
             .modal-btn-confirm, .modal-btn-cancel { height: 44px; font-size: .66rem; }
             .modal-fingerprint { font-size: .45rem; }
-            .success-wrap { padding: 0 16px 60px; padding-top:60px; }
-            .seal-stage { min-height:65vh; }
+
+            .seal-stage {
+                min-height: 65vh;
+                padding: 16px 0;
+            }
+
+            .seal-stage.compact {
+                min-height: auto;
+                padding-top: 24px;
+            }
+
+            .seal-scene.compact {
+                margin-bottom: 20px;
+            }
+
+            .seal-hand.animate {
+                animation: handStampMobile 2.4s cubic-bezier(.25,.46,.45,.94) forwards;
+            }
+
+            @keyframes handStampMobile {
+                0%   { transform: translate(-50%, calc(-72% - 380px)) rotate(-20deg); opacity: 0; }
+                12%  { opacity: 1; }
+                48%  { transform: translate(-50%, -72%) rotate(0deg); opacity: 1; }
+                56%  { transform: translate(-50%, calc(-72% + 8px)) rotate(1deg); opacity: 1; }
+                64%  { transform: translate(-50%, calc(-72% - 6px)) rotate(-2deg); opacity: 1; }
+                72%  { transform: translate(-50%, calc(-72% - 2px)) rotate(-1deg); opacity: 1; }
+                80%  { transform: translate(-50%, -72%) rotate(0deg); opacity: 1; }
+                100% { transform: translate(-50%, calc(-72% - 340px)) rotate(-18deg); opacity: 0; }
+            }
+
             .success-title { font-size: 1.5rem; }
-            .success-body { font-size: .8rem; max-width: 100%; padding: 0 8px; }
+            .success-body { font-size: .8rem; max-width: 100%; padding: 0 4px; }
             .reg-badge { padding: 14px 28px; }
             .reg-val { font-size: 1rem; }
-            .seal-scene { margin-bottom: 0; }
-            .seal-scene.compact { margin-bottom: 18px; }
-            .seal-logo img { width: calc(var(--seal-circle-size) * 1.35); height: calc(var(--seal-circle-size) * 1.35); }
-            .seal-hand { width: var(--hand-size); height: var(--hand-size); }
-            @keyframes handStamp { 0% { transform:translate(-50%, calc(-72% - 350px)) rotate(-25deg); opacity:0; } 20% { opacity:1; } 50% { transform:translate(-50%, -72%) rotate(0deg); opacity:1; } 62% { transform:translate(-50%, calc(-72% - 10px)) rotate(-3deg); opacity:1; } 72% { transform:translate(-50%, calc(-72% - 3px)) rotate(-1deg); opacity:1; } 100% { transform:translate(-50%, calc(-72% - 280px)) rotate(-15deg); opacity:0; } }
+            .success-content { padding: 0 8px 60px; }
+
+            .success-reject-wrap { padding: 0 16px 60px; padding-top: 60px; }
+
             .site-footer { flex-direction: column; align-items: flex-start; padding: 16px 16px; gap: 10px; }
             .site-footer img { height: 18px; }
             .footer-text { font-size: .6rem; }
@@ -349,14 +478,33 @@
         }
 
         @media (max-width: 400px) {
+            :root {
+                --seal-circle-size: 150px;
+                --hand-size: 240px;
+            }
             .nav-pill span { font-size: .5rem; letter-spacing: 1px; }
             .hero-title { font-size: 1.6rem; }
             .q-card { padding: 16px 12px; }
             .decl-card { padding: 16px 12px; }
             .clause { padding: 14px 14px; }
             .btn-accept, .btn-reject { height: 46px; font-size: .62rem; letter-spacing: 1px; }
-            .success-wrap { padding: 0 12px 60px; padding-top:50px; }
-            .seal-stage { min-height:60vh; }
+            .seal-stage { min-height: 60vh; }
+            .seal-stage.compact { padding-top: 20px; }
+
+            .seal-hand.animate {
+                animation: handStampSmall 2.4s cubic-bezier(.25,.46,.45,.94) forwards;
+            }
+
+            @keyframes handStampSmall {
+                0%   { transform: translate(-50%, calc(-72% - 300px)) rotate(-20deg); opacity: 0; }
+                12%  { opacity: 1; }
+                48%  { transform: translate(-50%, -72%) rotate(0deg); opacity: 1; }
+                56%  { transform: translate(-50%, calc(-72% + 6px)) rotate(1deg); opacity: 1; }
+                64%  { transform: translate(-50%, calc(-72% - 5px)) rotate(-2deg); opacity: 1; }
+                72%  { transform: translate(-50%, calc(-72% - 2px)) rotate(-1deg); opacity: 1; }
+                80%  { transform: translate(-50%, -72%) rotate(0deg); opacity: 1; }
+                100% { transform: translate(-50%, calc(-72% - 260px)) rotate(-18deg); opacity: 0; }
+            }
         }
     </style>
 </head>
@@ -400,7 +548,7 @@
         <p class="hero-subtitle">Complete los siguientes pasos para formalizar su respuesta a la propuesta de servicios que recibió durante la llamada. Este acto constituye la manifestación inequívoca de su voluntad.</p>
     </div>
 
-    <div class="hero-divider" id="heroDivider"></div>
+    <div class="hero-divider" id="heroDivider"><div class="divider-line"></div></div>
 
     <div class="form-area">
 
@@ -534,7 +682,7 @@
             </div>
         </div>
 
-        <div class="success-wrap" id="rejectScreen">
+        <div class="success-reject-wrap" id="rejectScreen">
             <div class="reject-ring">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="10" stroke="#ef4444" stroke-width="2.5"/>
@@ -866,13 +1014,13 @@
                 var dist  = 60 + Math.random()*100;
                 p.style.setProperty('--tx', Math.cos(angle)*dist+'px');
                 p.style.setProperty('--ty', Math.sin(angle)*dist+'px');
-                p.style.animationDelay  = (0.8+Math.random()*0.6)+'s';
+                p.style.animationDelay  = (0.9+Math.random()*0.5)+'s';
                 var sz = (4+Math.random()*8)+'px';
                 p.style.width  = sz;
                 p.style.height = sz;
                 p.style.background = Math.random()>.5 ? '#e2c26e' : '#c9a84c';
                 container.appendChild(p);
-                setTimeout(function(){ p.remove(); }, 2700);
+                setTimeout(function(){ p.remove(); }, 2800);
             }
             for (var j = 0; j < 25; j++) {
                 var sp    = document.createElement('div');
@@ -881,97 +1029,126 @@
                 var sDist = 30+Math.random()*80;
                 sp.style.setProperty('--sx', Math.cos(sAng)*sDist+'px');
                 sp.style.setProperty('--sy', Math.sin(sAng)*sDist+'px');
-                sp.style.animationDelay = (0.7+Math.random()*0.8)+'s';
+                sp.style.animationDelay = (0.8+Math.random()*0.7)+'s';
                 var ssz = (2+Math.random()*4)+'px';
                 sp.style.width  = ssz;
                 sp.style.height = ssz;
                 container.appendChild(sp);
-                setTimeout(function(){ sp.remove(); }, 3200);
+                setTimeout(function(){ sp.remove(); }, 3300);
             }
         }
-
-        window.doAccept = function() {
-            closeModal();
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('heroDivider').style.display = 'none';
-            decisionFinal = 'ACEPTADA';
-            var codigoRegistro = generarCodigoUnico(estado.rut, estado.email, new Date().toISOString());
-            document.getElementById('reg-num').textContent  = codigoRegistro;
-            document.getElementById('reg-hash').textContent = 'HASH: '+globalHash.slice(0,24)+'…'+globalHash.slice(-8);
-            document.getElementById('page2').classList.remove('is-active');
-            document.getElementById('successScreen').classList.add('is-active');
-            updateProgress(3);
-            var datosParaEnviar = {
-                rut: estado.rut, email: estado.email, fecha: estado.fecha,
-                hash: estado.hash, sessionId: estado.sessionId, decision: decisionFinal,
-                registro: codigoRegistro, ip: document.getElementById('meta-ip').textContent
-            };
-            enviarAGoogleForms(datosParaEnviar, 'successFormStatus');
-
-            var sealStage = document.getElementById('sealStage');
-            var sealScene = document.getElementById('sealScene');
-            var successContent = document.getElementById('successContent');
-
-            sealStage.classList.remove('compact');
-            sealScene.classList.remove('compact');
-            successContent.classList.remove('visible');
-
-            sealStage.style.minHeight = '75vh';
-            sealStage.style.justifyContent = 'center';
-
-            setTimeout(function() {
-                var rect = sealScene.getBoundingClientRect();
-                var absoluteTop = window.pageYOffset + rect.top;
-                var viewH = window.innerHeight;
-                var targetScroll = Math.max(0, absoluteTop - (viewH * 0.18));
-                window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-            }, 200);
-
-            setTimeout(function() {
-                playStampAnimation();
-
-                setTimeout(function() {
-                    sealStage.classList.add('compact');
-                    sealScene.classList.add('compact');
-                    successContent.classList.add('visible');
-
-                    setTimeout(function() {
-                        var contentRect = successContent.getBoundingClientRect();
-                        var contentTop = window.pageYOffset + contentRect.top;
-                        var viewH = window.innerHeight;
-                        var scrollToContent = Math.max(0, contentTop - (viewH * 0.15));
-                        window.scrollTo({ top: scrollToContent, behavior: 'smooth' });
-                    }, 500);
-                }, 2000);
-            }, 700);
-        };
 
         function playStampAnimation() {
             var disc = document.getElementById('sealDisc');
             var logo = document.getElementById('sealLogo');
+            var ring = document.getElementById('sealRing');
+            var hand = document.getElementById('sealHand');
+
             disc.classList.remove('reveal');
             logo.classList.remove('reveal');
+            ring.classList.remove('animate');
+            hand.classList.remove('animate');
+
             void disc.offsetWidth;
+
+            disc.style.animationDelay = '1.0s';
+            logo.style.animationDelay = '1.0s';
             disc.classList.add('reveal');
             logo.classList.add('reveal');
 
-            var ring = document.getElementById('sealRing');
-            ring.classList.remove('animate');
-            void ring.offsetWidth;
-            ring.style.animationDelay = '0.9s';
+            ring.style.animationDelay = '1.05s';
             ring.classList.add('animate');
 
-            var hand = document.getElementById('sealHand');
-            hand.classList.remove('animate');
-            void hand.offsetWidth;
             hand.classList.add('animate');
 
             setTimeout(function(){
                 var burst = document.getElementById('sealParticles');
                 burst.innerHTML = '';
                 spawnParticles(burst);
-            }, 1100);
+            }, 1150);
         }
+
+        window.doAccept = function() {
+            closeModal();
+
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('heroDivider').style.display = 'none';
+            decisionFinal = 'ACEPTADA';
+
+            var codigoRegistro = generarCodigoUnico(estado.rut, estado.email, new Date().toISOString());
+            document.getElementById('reg-num').textContent  = codigoRegistro;
+            document.getElementById('reg-hash').textContent = 'HASH: '+globalHash.slice(0,24)+'…'+globalHash.slice(-8);
+
+            document.getElementById('page2').classList.remove('is-active');
+
+            var successScreen   = document.getElementById('successScreen');
+            var sealStage       = document.getElementById('sealStage');
+            var sealScene       = document.getElementById('sealScene');
+            var successContent  = document.getElementById('successContent');
+
+            sealStage.classList.remove('compact');
+            sealScene.classList.remove('compact');
+            successContent.classList.remove('visible');
+
+            successScreen.classList.add('is-active');
+            updateProgress(3);
+
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    var headerH = document.getElementById('topHeader').offsetHeight || 120;
+                    var sceneRect = sealScene.getBoundingClientRect();
+                    var viewH = window.innerHeight;
+                    var sceneH = sceneRect.height;
+                    var idealTop = window.pageYOffset + sceneRect.top - (viewH - sceneH) / 2;
+                    var targetScroll = Math.max(0, idealTop);
+
+                    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+
+                    setTimeout(function() {
+                        playStampAnimation();
+
+                        setTimeout(function() {
+                            sealStage.classList.add('compact');
+                            sealScene.classList.add('compact');
+
+                            setTimeout(function() {
+                                successContent.classList.add('visible');
+
+                                setTimeout(function() {
+                                    var contentEl = successContent;
+                                    var contentRect = contentEl.getBoundingClientRect();
+                                    var sealSceneRect2 = sealScene.getBoundingClientRect();
+                                    var combinedTop = window.pageYOffset + sealSceneRect2.top;
+                                    var combinedBottom = window.pageYOffset + contentRect.bottom;
+                                    var combinedH = combinedBottom - combinedTop;
+                                    var viewH2 = window.innerHeight;
+                                    var headerOffset = document.getElementById('topHeader').offsetHeight || 120;
+                                    var targetTop;
+                                    if (combinedH <= viewH2 - headerOffset) {
+                                        targetTop = combinedTop - headerOffset - Math.max(0, (viewH2 - headerOffset - combinedH) / 2);
+                                    } else {
+                                        targetTop = combinedTop - headerOffset - 12;
+                                    }
+                                    window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+                                }, 300);
+
+                            }, 200);
+
+                        }, 2100);
+
+                    }, 500);
+                });
+            });
+
+            var datosParaEnviar = {
+                rut: estado.rut, email: estado.email, fecha: estado.fecha,
+                hash: estado.hash, sessionId: estado.sessionId, decision: decisionFinal,
+                registro: codigoRegistro, ip: document.getElementById('meta-ip').textContent
+            };
+            enviarAGoogleForms(datosParaEnviar, 'successFormStatus');
+        };
 
         window.doReject = function() {
             decisionFinal = 'RECHAZADA';
