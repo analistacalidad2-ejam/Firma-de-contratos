@@ -301,7 +301,7 @@
         .footer-sep { width:1px; height:10px; background:var(--border); }
 
         .form-status {
-            display: none;
+            display: block;
             margin-top: 16px;
             padding: 12px 16px;
             border-radius: var(--radius-sm);
@@ -310,14 +310,16 @@
             text-align: center;
             pointer-events: none;
             backdrop-filter: blur(8px);
+            transition: opacity 0.4s ease-out;
+            opacity: 0;
         }
-        .form-status.sending { display: block; background: rgba(37,99,235,.15); border: 1px solid rgba(37,99,235,.3); color: #93c5fd; }
-        .form-status.success { display: block; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.25); color: #6ee7b7; }
-        .form-status.error { display: block; background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #fca5a5; }
+        .form-status.sending { opacity: 1; background: rgba(37,99,235,.15); border: 1px solid rgba(37,99,235,.3); color: #93c5fd; }
+        .form-status.success { opacity: 1; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.25); color: #6ee7b7; }
+        .form-status.error { opacity: 1; background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #fca5a5; }
 
         .status-container {
             position: relative;
-            min-height: 80px;
+            min-height: 0px;
             width: 100%;
         }
 
@@ -384,7 +386,7 @@
             .footer-comp-item { font-size: .52rem; }
             .subtle-hash-footer { padding: 10px 16px 24px; }
             .subtle-hash-val { font-size: .5rem; }
-            .status-container { min-height: 70px; }
+            .status-container { min-height: 0px; }
         }
 
         @media (max-width: 400px) {
@@ -397,7 +399,7 @@
             .btn-accept, .btn-reject { height: 46px; font-size: .62rem; letter-spacing: 1px; }
             .success-wrap { padding: 0 12px 60px; }
             .seal-stage { padding-top: 20px; }
-            .status-container { min-height: 65px; }
+            .status-container { min-height: 0px; }
         }
     </style>
 </head>
@@ -639,6 +641,8 @@
         var estado = { rut: '', email: '', fecha: '', sessionId: '', hash: '' };
         var globalHash = '';
         var decisionFinal = '';
+        var scrollPositionBeforeError = 0;
+        var isStatusActive = false;
 
         function generarCodigoUnico(rut, email, timestamp) {
             var limpiarRut = rut.replace(/[\.\-\s]/g, '').toUpperCase();
@@ -766,18 +770,26 @@
             
             if (activeStatusTimeout) clearTimeout(activeStatusTimeout);
             
+            var wasVisible = el.classList.contains('sending') || el.classList.contains('success') || el.classList.contains('error');
+            
             el.className = 'form-status ' + type;
             el.textContent = message;
             el.style.opacity = '1';
+            
+            if (type === 'error') {
+                console.log('Error status shown, no scroll adjustment needed');
+            }
             
             activeStatusTimeout = setTimeout(function() {
                 el.style.transition = 'opacity 0.4s ease-out';
                 el.style.opacity = '0';
                 setTimeout(function() {
-                    el.className = 'form-status';
-                    el.textContent = '';
-                    el.style.opacity = '';
-                    el.style.transition = '';
+                    if (el.className.includes('form-status')) {
+                        el.className = 'form-status';
+                        el.textContent = '';
+                        el.style.opacity = '';
+                        el.style.transition = '';
+                    }
                 }, 400);
                 activeStatusTimeout = null;
             }, 7000);
@@ -1012,13 +1024,11 @@
                     
                     setTimeout(function(){
                         if(overlay.parentNode)document.body.removeChild(overlay);
-                        var sc=document.getElementById('sealScene');
-                        var sct=document.getElementById('successContent');
-                        var hh=document.getElementById('topHeader').offsetHeight||100;
-                        var scr=sc.getBoundingClientRect(),ctr=sct.getBoundingClientRect();
-                        var th=(ctr.bottom-scr.top),vH=window.innerHeight-hh;
-                        var st=window.pageYOffset+scr.top-hh-Math.max(0,(vH-th)/2);
-                        window.scrollTo({top:Math.max(0,st),behavior:'smooth'});
+                        var targetElement = document.getElementById('successContent');
+                        var headerHeight = document.getElementById('topHeader').offsetHeight || 100;
+                        var elementPosition = targetElement.getBoundingClientRect().top;
+                        var offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+                        window.scrollTo({ top: Math.max(0, offsetPosition), behavior: 'smooth' });
                     },800);
                 }
             }
@@ -1062,8 +1072,11 @@
             },'rejectFormStatus');
             
             setTimeout(function() {
-                var rejectScreen = document.getElementById('rejectScreen');
-                rejectScreen.scrollIntoView({behavior:'smooth',block:'center'});
+                var targetElement = document.getElementById('rejectScreen');
+                var headerHeight = document.getElementById('topHeader').offsetHeight || 100;
+                var elementPosition = targetElement.getBoundingClientRect().top;
+                var offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+                window.scrollTo({ top: Math.max(0, offsetPosition), behavior: 'smooth' });
             }, 320);
         };
 
