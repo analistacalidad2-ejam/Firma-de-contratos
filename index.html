@@ -300,10 +300,26 @@
         .footer-comp-item { font-size:.57rem; color:var(--dim); font-family:var(--mono); letter-spacing:.5px; }
         .footer-sep { width:1px; height:10px; background:var(--border); }
 
-        .form-status { display:none; margin-top:16px; padding:12px 16px; border-radius:var(--radius-sm); font-size:.78rem; font-weight:500; text-align:center; }
-        .form-status.sending { display:block; background:rgba(37,99,235,.15); border:1px solid rgba(37,99,235,.3); color:#93c5fd; }
-        .form-status.success { display:block; background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.25); color:#6ee7b7; }
-        .form-status.error { display:block; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25); color:#fca5a5; }
+        .form-status {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            font-size: .78rem;
+            font-weight: 500;
+            text-align: center;
+            pointer-events: none;
+            backdrop-filter: blur(8px);
+        }
+        .form-status.sending { display: block; background: rgba(37,99,235,.15); border: 1px solid rgba(37,99,235,.3); color: #93c5fd; }
+        .form-status.success { display: block; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.25); color: #6ee7b7; }
+        .form-status.error { display: block; background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #fca5a5; }
+
+        .status-container {
+            position: relative;
+            min-height: 80px;
+            width: 100%;
+        }
 
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         @keyframes sealReveal { 0% { opacity:0; transform:scale(0.2) rotate(-15deg); } 40% { opacity:1; transform:scale(1.08) rotate(2deg); } 70% { transform:scale(0.98) rotate(-1deg); } 100% { opacity:1; transform:scale(1) rotate(0deg); } }
@@ -368,6 +384,7 @@
             .footer-comp-item { font-size: .52rem; }
             .subtle-hash-footer { padding: 10px 16px 24px; }
             .subtle-hash-val { font-size: .5rem; }
+            .status-container { min-height: 70px; }
         }
 
         @media (max-width: 400px) {
@@ -380,6 +397,7 @@
             .btn-accept, .btn-reject { height: 46px; font-size: .62rem; letter-spacing: 1px; }
             .success-wrap { padding: 0 12px 60px; }
             .seal-stage { padding-top: 20px; }
+            .status-container { min-height: 65px; }
         }
     </style>
 </head>
@@ -549,7 +567,9 @@
                         <span class="reg-val" id="reg-num">—</span>
                         <span class="reg-hash" id="reg-hash">—</span>
                     </div>
-                    <div class="form-status" id="successFormStatus"></div>
+                    <div class="status-container" id="successStatusContainer">
+                        <div class="form-status" id="successFormStatus"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -564,7 +584,9 @@
             </div>
             <h2 class="success-title">Propuesta no aceptada</h2>
             <p class="success-body">Hemos registrado su decisión. Si desea retomar la consulta o tiene dudas sobre la propuesta de servicios, no dude en contactarnos.</p>
-            <div class="form-status" id="rejectFormStatus"></div>
+            <div class="status-container" id="rejectStatusContainer">
+                <div class="form-status" id="rejectFormStatus"></div>
+            </div>
         </div>
 
     </div>
@@ -737,14 +759,28 @@
             setInterval(tick, 1000);
         }
 
+        var activeStatusTimeout = null;
         function setFormStatus(elementId, type, message) {
             var el = document.getElementById(elementId);
             if (!el) return;
+            
+            if (activeStatusTimeout) clearTimeout(activeStatusTimeout);
+            
             el.className = 'form-status ' + type;
             el.textContent = message;
-            if (type === 'success' || type === 'error') {
-                setTimeout(function(){ el.className = 'form-status'; el.textContent = ''; }, 8000);
-            }
+            el.style.opacity = '1';
+            
+            activeStatusTimeout = setTimeout(function() {
+                el.style.transition = 'opacity 0.4s ease-out';
+                el.style.opacity = '0';
+                setTimeout(function() {
+                    el.className = 'form-status';
+                    el.textContent = '';
+                    el.style.opacity = '';
+                    el.style.transition = '';
+                }, 400);
+                activeStatusTimeout = null;
+            }, 7000);
         }
 
         function enviarAGoogleForms(datos, statusElementId) {
@@ -765,15 +801,15 @@
                 if (xhr.status >= 200 && xhr.status < 400) {
                     setFormStatus(statusElementId, 'success', 'Datos registrados exitosamente en el sistema.');
                 } else {
-                    setFormStatus(statusElementId, 'error', 'Error al enviar datos. Reintentando...');
+                    setFormStatus(statusElementId, 'error', 'Error al enviar datos. Los datos han sido guardados localmente.');
                 }
             };
             xhr.onerror = function() {
-                setFormStatus(statusElementId, 'error', 'Error de conexión. Datos guardados localmente.');
+                setFormStatus(statusElementId, 'error', 'Error de conexión. Los datos han sido guardados localmente.');
             };
             xhr.timeout = 15000;
             xhr.ontimeout = function() {
-                setFormStatus(statusElementId, 'error', 'Tiempo de espera agotado.');
+                setFormStatus(statusElementId, 'error', 'Tiempo de espera agotado. Datos guardados localmente.');
             };
             xhr.send(formData);
         }
@@ -997,11 +1033,26 @@
 
         window.doReject=function(){
             decisionFinal='RECHAZADA';
-            document.getElementById('heroSection').style.display='none';
-            document.getElementById('heroDivider').style.display='none';
-            document.getElementById('hashFooter').style.display='none';
-            document.getElementById('page2').classList.remove('is-active');
-            document.getElementById('rejectScreen').classList.add('is-active');
+            
+            var heroSection = document.getElementById('heroSection');
+            var heroDivider = document.getElementById('heroDivider');
+            var page2 = document.getElementById('page2');
+            
+            heroSection.style.transition = 'opacity 0.3s ease-out';
+            heroDivider.style.transition = 'opacity 0.3s ease-out';
+            page2.style.transition = 'opacity 0.3s ease-out';
+            
+            heroSection.style.opacity = '0';
+            heroDivider.style.opacity = '0';
+            page2.style.opacity = '0';
+            
+            setTimeout(function() {
+                heroSection.style.display = 'none';
+                heroDivider.style.display = 'none';
+                page2.classList.remove('is-active');
+                document.getElementById('rejectScreen').classList.add('is-active');
+            }, 300);
+            
             updateProgress(3);
             var cod=generarCodigoUnico(estado.rut,estado.email,new Date().toISOString());
             enviarAGoogleForms({
@@ -1009,7 +1060,11 @@
                 hash:estado.hash,sessionId:estado.sessionId,decision:decisionFinal,
                 registro:cod,ip:document.getElementById('meta-ip').textContent
             },'rejectFormStatus');
-            document.getElementById('rejectScreen').scrollIntoView({behavior:'smooth',block:'center'});
+            
+            setTimeout(function() {
+                var rejectScreen = document.getElementById('rejectScreen');
+                rejectScreen.scrollIntoView({behavior:'smooth',block:'center'});
+            }, 320);
         };
 
         var th=document.getElementById('topHeader');
