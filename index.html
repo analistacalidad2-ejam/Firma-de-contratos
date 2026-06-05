@@ -682,7 +682,7 @@
 
     </div>
 
-    <div class="subtle-hash-footer">
+    <div class="subtle-hash-footer" id="hashFooter" style="display:none;">
         <div class="subtle-hash-val" id="globalHashFooter">—</div>
     </div>
 
@@ -881,6 +881,7 @@
             closeModal();
             document.getElementById('heroSection').style.display='none';
             document.getElementById('heroDivider').style.display='none';
+            document.getElementById('hashFooter').style.display='none';
             decisionFinal='ACEPTADA';
             var codigo=generarCodigoUnico(estado.rut,estado.email,new Date().toISOString());
             document.getElementById('reg-num').textContent=codigo;
@@ -894,7 +895,6 @@
             var sSize=isS?150:(isM?170:220);
 
             var hand=document.getElementById('sealHand');
-            var rootStyle=getComputedStyle(document.documentElement);
             hand.style.width=hSize+'px';hand.style.height=hSize+'px';
             hand.style.position='fixed';hand.style.left=(vw/2-hSize/2)+'px';
             hand.style.top=(-hSize-20)+'px';hand.style.zIndex='10001';
@@ -902,7 +902,7 @@
             hand.style.transform='rotate(-22deg)';hand.style.transition='none';
 
             var overlay=document.createElement('div');
-            overlay.style.cssText='position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;pointer-events:none;';
+            overlay.style.cssText='position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;pointer-events:none;background:var(--navy);';
 
             var wrapper=document.createElement('div');
             wrapper.style.cssText='position:relative;width:'+sSize+'px;height:'+sSize+'px;';
@@ -966,9 +966,13 @@
                 if(p<1){requestAnimationFrame(anim);}
                 else{
                     hand.style.display='none';
-                    overlay.style.transition='opacity 0.5s ease';
-                    overlay.style.opacity='0';
+                    
                     document.getElementById('successScreen').classList.add('is-active');
+                    document.getElementById('hashFooter').style.display='block';
+                    
+                    overlay.style.transition='opacity 0.6s ease';
+                    overlay.style.opacity='0';
+                    
                     setTimeout(function(){
                         if(overlay.parentNode)document.body.removeChild(overlay);
                         var sc=document.getElementById('sealScene');
@@ -978,7 +982,7 @@
                         var th=(ctr.bottom-scr.top),vH=window.innerHeight-hh;
                         var st=window.pageYOffset+scr.top-hh-Math.max(0,(vH-th)/2);
                         window.scrollTo({top:Math.max(0,st),behavior:'smooth'});
-                    },600);
+                    },700);
                 }
             }
             requestAnimationFrame(anim);
@@ -994,6 +998,7 @@
             decisionFinal='RECHAZADA';
             document.getElementById('heroSection').style.display='none';
             document.getElementById('heroDivider').style.display='none';
+            document.getElementById('hashFooter').style.display='none';
             document.getElementById('page2').classList.remove('is-active');
             document.getElementById('rejectScreen').classList.add('is-active');
             updateProgress(3);
