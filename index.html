@@ -914,35 +914,41 @@
             if (p < 1) {
                 requestAnimationFrame(anim);
             } else {
-    hand.style.display = 'none';
-    var sealDisc = document.getElementById('sealDisc');
-    var sealLogo = document.getElementById('sealLogo');
-    var sealRing = document.getElementById('sealRing');
-    sealDisc.style.animation = 'none';
-    sealLogo.style.animation = 'none';
-    sealRing.style.animation = 'none';
-    sealDisc.style.opacity = '1';
-    sealDisc.style.transform = 'scale(1) rotate(0deg)';
-    sealLogo.style.opacity = '1';
-    sealLogo.style.transform = 'scale(1) rotate(0deg)';
-    sealRing.style.display = 'none';
-    document.getElementById('reg-num').textContent = codigoRegistro;
-    document.getElementById('reg-hash').textContent = 'HASH: '+globalHash.slice(0,24)+'…'+globalHash.slice(-8);
-    document.getElementById('successScreen').classList.add('is-active');
-    var successContentElem = document.getElementById('successContent');
-    successContentElem.classList.add('revealed');
-    overlay.style.opacity = '0';
-    setTimeout(function() {
-        if (overlay.parentNode) overlay.remove();
-    }, 500);
-    var targetContainer = document.getElementById('successContainer');
-    var headerHeight = document.getElementById('topHeader').offsetHeight || 100;
-    var targetPosition = targetContainer.getBoundingClientRect().top + window.pageYOffset;
-    var finalScroll = targetPosition - headerHeight - 20;
-    setTimeout(function() {
-        window.scrollTo({ top: Math.max(0, finalScroll), behavior: 'smooth' });
-    }, 100);
-}
+                hand.style.display = 'none';
+                var sealScene = document.getElementById('sealScene');
+                var sealDisc = document.getElementById('sealDisc');
+                var sealLogo = document.getElementById('sealLogo');
+                var sealRing = document.getElementById('sealRing');
+                var sealParticles = document.getElementById('sealParticles');
+                sealDisc.style.animation = 'none';
+                sealLogo.style.animation = 'none';
+                sealRing.style.animation = 'none';
+                sealDisc.style.opacity = '1';
+                sealDisc.style.transform = 'scale(1) rotate(0deg)';
+                sealLogo.style.opacity = '1';
+                sealLogo.style.transform = 'scale(1) rotate(0deg)';
+                sealRing.style.opacity = '0';
+                sealRing.style.transform = 'scale(2.2)';
+                sealParticles.innerHTML = '';
+                spawnParticles(sealParticles);
+                document.getElementById('reg-num').textContent = codigoRegistro;
+                document.getElementById('reg-hash').textContent = 'HASH: '+globalHash.slice(0,24)+'…'+globalHash.slice(-8);
+                document.getElementById('successScreen').classList.add('is-active');
+                var successContentElem = document.getElementById('successContent');
+                successContentElem.classList.add('revealed');
+                overlay.style.opacity = '0';
+                setTimeout(function() {
+                    if (overlay.parentNode) overlay.remove();
+                }, 500);
+                var targetContainer = document.getElementById('successContainer');
+                var headerHeight = document.getElementById('topHeader').offsetHeight || 100;
+                var targetPosition = targetContainer.getBoundingClientRect().top + window.pageYOffset;
+                var finalScroll = targetPosition - headerHeight - 20;
+                setTimeout(function() {
+                    window.scrollTo({ top: Math.max(0, finalScroll), behavior: 'smooth' });
+                }, 100);
+            }
+        }
         requestAnimationFrame(anim);
         
         var datosParaEnviar = {
