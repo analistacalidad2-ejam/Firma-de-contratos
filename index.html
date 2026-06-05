@@ -771,22 +771,23 @@
     });
 
     function spawnParticles(container) {
-        var count = 40;
-        for (var i = 0; i < count; i++) {
-            var p     = document.createElement('div');
-            p.classList.add('particle');
-            var angle = (Math.PI*2*i)/count;
-            var dist  = 60 + Math.random()*100;
-            p.style.setProperty('--tx', Math.cos(angle)*dist+'px');
-            p.style.setProperty('--ty', Math.sin(angle)*dist+'px');
-            p.style.animationDelay  = (0.6+Math.random()*0.4)+'s';
-            var sz = (4+Math.random()*8)+'px';
-            p.style.width  = sz;
-            p.style.height = sz;
-            p.style.background = Math.random()>.5 ? '#e2c26e' : '#c9a84c';
-            container.appendChild(p);
-            setTimeout(function(){ p.remove(); }, 2200);
-        }
+    for (var i = 0; i < 30; i++) {
+        var p = document.createElement('div');
+        p.classList.add('particle');
+        var angle = (Math.PI * 2 * i) / 30;
+        var dist = 40 + Math.random() * 70;
+        p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--ty', Math.sin(angle) * dist - 40 + 'px');
+        p.style.animationDelay = (Math.random() * 0.2) + 's';
+        var sz = (2 + Math.random() * 5) + 'px';
+        p.style.width = sz;
+        p.style.height = sz;
+        p.style.background = '#ffffff';
+        p.style.boxShadow = '0 0 8px #e2c26e, 0 0 16px #c9a84c';
+        container.appendChild(p);
+        setTimeout(function() { p.remove(); }, 2000);
+    }
+}
         for (var j = 0; j < 25; j++) {
             var sp    = document.createElement('div');
             sp.classList.add('sparkle');
